@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PlatformSdk.iml" filepath="$PROJECT_DIR$/PlatformSdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/platformSdk.iml" filepath="$PROJECT_DIR$/platformSdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/platformsdk/platformsdk.iml" filepath="$PROJECT_DIR$/platformsdk/platformsdk.iml" />
     </modules>
   </component>
