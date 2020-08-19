@@ -2,10 +2,12 @@ package com.dingmao.platformsdk;
 
 import android.util.Log;
 
+import com.dingmao.platformsdk.callback.PlatformStringCallback;
 import com.dingmao.platformsdk.internal.util.SPUtils;
+import com.dingmao.platformsdk.login.LoginByCodeReq;
 import com.dingmao.platformsdk.login.LoginKeyRequest;
 import com.dingmao.platformsdk.login.LoginKeyResponse;
-import com.dingmao.platformsdk.login.LoginRequest;
+import com.dingmao.platformsdk.login.LoginByPwdReq;
 import com.dingmao.platformsdk.login.LoginResponse;
 import com.google.gson.Gson;
 
@@ -26,12 +28,17 @@ class AccessManagement {
         OkHttpUtils.getInstance().doPost(loginKeyUrl,new Gson().toJson(prepareKey()),callback);
     }
 
-    static void doLogin(final LoginRequest request, final PlatformCallback callback) {
+    /**
+     * 账号密码登录
+     * @param request
+     * @param callback
+     */
+    static void doLoginByPwd(final LoginByPwdReq request, final PlatformCallback callback) {
         doLoginKey(new PlatformCallback<LoginKeyResponse>() {
             @Override
             public void onSuccess(LoginKeyResponse loginKeyResponse) {
                 SPUtils.put(ApiConstant.KEY_SECRET,loginKeyResponse.getKey());
-                String loginUrl = ApiConstant.LOGIN;
+                String loginUrl = ApiConstant.LOGIN_PWD;
                 request.setLogin_type("1");
                 String json = new Gson().toJson(request);
                 Log.e(TAG,json);
@@ -65,6 +72,73 @@ class AccessManagement {
             public void onTokenInvalid(String msg) {
                 callback.onTokenInvalid(msg);
             }
+        });
+    }
+
+    /**
+     * 验证码登录
+     * @param request
+     * @param callback
+     */
+    public static void doLoginByCode(LoginByCodeReq request, PlatformCallback callback) {
+        doLoginKey(new PlatformCallback<LoginKeyResponse>() {
+            @Override
+            public void onSuccess(LoginKeyResponse loginKeyResponse) {
+                SPUtils.put(ApiConstant.KEY_SECRET,loginKeyResponse.getKey());
+                String loginUrl = ApiConstant.LOGIN_CODE;
+                request.setLogin_type("2");
+                String json = new Gson().toJson(request);
+                Log.e(TAG,json);
+                OkHttpUtils.getInstance().doPost(loginUrl, json, new PlatformCallback<LoginResponse>() {
+                    @Override
+                    public void onSuccess(LoginResponse loginResponse) {
+                        SPUtils.put(ApiConstant.KEY_TOKEN,loginResponse.getAccess_token());
+                        SPUtils.put(ApiConstant.KEY_REFRESH_TOKEN,loginResponse.getRefresh_token());
+                        SPUtils.put(ApiConstant.KEY_PHONE, loginResponse.getPhone());
+                        callback.onSuccess(loginResponse);
+                    }
+
+                    @Override
+                    public void onFailed(String msg) {
+                        callback.onFailed(msg);
+                    }
+
+                    @Override
+                    public void onTokenInvalid(String msg) {
+                        callback.onTokenInvalid(msg);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                callback.onFailed(msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+                callback.onTokenInvalid(msg);
+            }
+        });
+    }
+
+    /**
+     * 登出
+     * @param callback
+     */
+    public static void doLogout(String url, PlatformStringCallback callback) {
+        OkHttpUtils.getInstance().doPost(url,null,new PlatformStringCallback(){
+            @Override
+            public void onSuccess(String msg) {
+                SPUtils.clear(PlatformSDK.getContext());
+                callback.onSuccess(msg);
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                callback.onFailed(msg);
+            }
+
         });
     }
 }

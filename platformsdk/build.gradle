@@ -28,13 +28,25 @@ android {
 
 }
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+task clearJar(type: Delete) {
+    delete 'build/outputs/okhttputils.jar'
+}
 
+task makeJar(type: Copy) {
+    from('build/intermediates/bundles/release/')
+    into('build/outputs/')
+    include('classes.jar')
+    rename ('classes.jar', 'okhttputils.jar')
+}
+
+makeJar.dependsOn(clearJar, build)
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api 'com.squareup.okhttp3:okhttp:3.11.0'
     api 'com.google.code.gson:gson:2.8.5'
-    api "com.squareup.okhttp3:logging-interceptor:3.8.0"
+    api 'com.squareup.okhttp3:logging-interceptor:3.8.0'
 }

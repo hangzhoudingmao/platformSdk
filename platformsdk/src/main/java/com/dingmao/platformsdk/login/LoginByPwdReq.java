@@ -3,13 +3,13 @@ package com.dingmao.platformsdk.login;
 /**
  * Create by atu on 2020/8/13
  */
-public class LoginRequest {
+public class LoginByPwdReq {
     private String user_no;
     private String password;
     private String login_type;
     private String system_no;
 
-    public LoginRequest(String user_no, String password) {
+    public LoginByPwdReq(String user_no, String password) {
         this.user_no = user_no;
         this.password = password;
     }

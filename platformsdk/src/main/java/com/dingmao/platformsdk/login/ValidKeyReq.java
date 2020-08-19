@@ -3,7 +3,7 @@ package com.dingmao.platformsdk.login;
 /**
  * Create by atu on 2020/8/14
  */
-public class ValidKeyRequest {
+public class ValidKeyReq {
     private String key;
     private String auth_code;
 

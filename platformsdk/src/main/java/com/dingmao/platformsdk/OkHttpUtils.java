@@ -5,7 +5,11 @@ import android.os.Handler;
 import android.util.Log;
 
 
+import com.dingmao.platformsdk.callback.FlushTokenCallback;
 import com.dingmao.platformsdk.callback.PlatformListCallback;
+import com.dingmao.platformsdk.callback.PlatformStringCallback;
+import com.dingmao.platformsdk.insertmanagement.RefreshTokenRsp;
+import com.dingmao.platformsdk.internal.util.SPUtils;
 
 import java.io.File;
 import java.util.Iterator;
@@ -57,7 +61,7 @@ public class OkHttpUtils {
     }
 
     /**
-     * post提交数据
+     * post处理返回对象
      * @param url
      * @param params
      * @param callback
@@ -69,6 +73,45 @@ public class OkHttpUtils {
         mOkHttpClient.newCall(request).enqueue(callback);
     }
 
+    void doPost(String url, String params, PlatformStringCallback callback){
+        Request request = new Request.Builder().url(ApiConstant.BASE_URL + url)
+                .post(RequestBody.create(JSON,params))
+                .build();
+        mOkHttpClient.newCall(request).enqueue(callback);
+    }
+
+    /**
+     * 刷新token使用
+     * @param url
+     * @param callback
+     */
+    void doPost(String url,PlatformStringCallback callback){
+        Request request = new Request
+                .Builder()
+                .url(ApiConstant.BASE_URL + url)
+                .addHeader("refresh_token", SPUtils.get(ApiConstant.KEY_REFRESH_TOKEN,"").toString())
+                .post(RequestBody.create(JSON,""))
+                .build();
+        mOkHttpClient.newCall(request).enqueue(new FlushTokenCallback<RefreshTokenRsp>() {
+            @Override
+            public void onSuccess(RefreshTokenRsp refreshTokenRsp) {
+                SPUtils.put(ApiConstant.KEY_TOKEN,refreshTokenRsp.getAccess_token());
+                callback.onSuccess("刷新成功");
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                callback.onFailed(msg);
+            }
+        });
+    }
+
+    /**
+     * post 处理返回数组对象
+     * @param url
+     * @param params
+     * @param callback
+     */
     void doPost(String url, String params, PlatformListCallback callback){
         Request request = new Request.Builder().url(ApiConstant.BASE_URL + url)
                 .post(RequestBody.create(JSON,params))

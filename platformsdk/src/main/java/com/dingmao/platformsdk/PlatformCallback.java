@@ -42,7 +42,7 @@ public abstract class PlatformCallback<T> implements Callback {
 
     //在主线程回调
     public abstract void onSuccess(T t);
-    public void onSuccess(List<T> t){};
+    public void onSuccess(String msg){};
 
     public abstract void onFailed(String msg);
 
@@ -65,27 +65,10 @@ public abstract class PlatformCallback<T> implements Callback {
                     Type[] types = type.getActualTypeArguments();
                     Log.e("getSuperclass======",types[0] + "");
                     Class<T> cls = (Class<T>) types[0];
-                    try {
-                        T t = gson.fromJson(json, cls);
-                        mHandler.post(() -> {
-                            onSuccess(t);
-                        });
-                    } catch (Exception e){
-                        JsonArray asJsonArray = new JsonParser().parse(json).getAsJsonArray();
-                        Log.e("asJsonArray==========",asJsonArray.toString());
-                        Iterator<JsonElement> iterator = asJsonArray.iterator();
-                        ArrayList<T> list = new ArrayList();
-                        while (iterator.hasNext()){
-                            JsonElement next = iterator.next();
-                            Log.e("JsonElement==========",next.toString());
-                            T t = gson.fromJson(next,cls);
-                            list.add(t);
-                        }
-                       Log.e("t==========",list.toString());
-                        mHandler.post(() -> {
-                            onSuccess(list);
-                        });
-                    }
+                    T t = gson.fromJson(json, cls);
+                    mHandler.post(() -> {
+                        onSuccess(t);
+                    });
                 } else {
                     mHandler.post(() -> {
                         try {
