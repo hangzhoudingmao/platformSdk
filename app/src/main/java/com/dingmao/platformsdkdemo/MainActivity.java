@@ -12,14 +12,15 @@ import com.dingmao.platformsdk.PlatformClient;
 import com.dingmao.platformsdk.PlatformSDK;
 import com.dingmao.platformsdk.insertmanagement.EquipCreateReq;
 import com.dingmao.platformsdk.insertmanagement.EquipCreateRsp;
-import com.dingmao.platformsdk.login.LoginByPwdReq;
-import com.dingmao.platformsdk.login.LoginResponse;
+import com.dingmao.platformsdk.organization.OrgCompDeptMultiReq;
+import com.dingmao.platformsdk.systemmanagement.SysDelVerReq;
 import com.google.gson.Gson;
 import com.hu.freemarkerlibs.Generator;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,9 +33,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-        PlatformClient.doLogin(new LoginByPwdReq("gly2", "hz123456"), new PlatformCallback<LoginResponse>() {
+        /*PlatformClient.doLogin(new LoginByPwdReq("gly2", "hz123456"), new PlatformCallback<LoginResponse>() {
             @Override
             public void onSuccess(LoginResponse o) {
+
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                Log.e("onFailed",msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });*/
+        OrgCompDeptMultiReq q = new OrgCompDeptMultiReq();
+        OrgCompDeptMultiReq.OrgDeptMultiReq  e = new OrgCompDeptMultiReq.OrgDeptMultiReq();
+
+        List list= new ArrayList();
+        list.add(e);
+        q.setMulti_para(list);
+        PlatformClient.doOrgCompExist(q, new PlatformCallback() {
+            @Override
+            public void onSuccess(Object o) {
 
             }
 

@@ -1,10 +1,17 @@
 package com.dingmao.platformsdk.login;
 
+import android.support.annotation.NonNull;
+
+import com.dingmao.platformsdk.verifynull.NotNull;
+
 /**
  * Create by atu on 2020/8/13
  */
 public class LoginKeyRequest {
+
+    @NotNull(fileName = "系统编码")
     private String system_no;
+    @NotNull(fileName = "授权码")
     private String auth_code;
 
     public LoginKeyRequest() {

@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
@@ -12,6 +11,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
 
     }
 
@@ -36,7 +41,7 @@ task makeJar(type: Copy) {
     from('build/intermediates/bundles/release/')
     into('build/outputs/')
     include('classes.jar')
-    rename ('classes.jar', 'okhttputils.jar')
+    rename('classes.jar', 'okhttputils.jar')
 }
 
 makeJar.dependsOn(clearJar, build)
@@ -49,4 +54,10 @@ dependencies {
     api 'com.squareup.okhttp3:okhttp:3.11.0'
     api 'com.google.code.gson:gson:2.8.5'
     api 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    api "com.android.support:appcompat-v7:28.0.0"
+    api "com.android.support:support-v4:28.0.0"
+    compileOnly "org.projectlombok:lombok:1.16.18"
+    annotationProcessor group:'org.projectlombok',name:'lombok',version:'1.16.18'
+
+    api 'org.glassfish:javax.annotation:10.0-b28'
 }

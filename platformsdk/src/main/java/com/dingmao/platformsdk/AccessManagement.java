@@ -1,15 +1,22 @@
 package com.dingmao.platformsdk;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.dingmao.platformsdk.callback.PlatformStringCallback;
 import com.dingmao.platformsdk.internal.util.SPUtils;
+import com.dingmao.platformsdk.internal.util.StringUtils;
 import com.dingmao.platformsdk.login.LoginByCodeReq;
 import com.dingmao.platformsdk.login.LoginKeyRequest;
 import com.dingmao.platformsdk.login.LoginKeyResponse;
 import com.dingmao.platformsdk.login.LoginByPwdReq;
 import com.dingmao.platformsdk.login.LoginResponse;
+import com.dingmao.platformsdk.usermanagement.ResetPwdReq;
+import com.dingmao.platformsdk.verifynull.VerifyAnnotation;
+import com.dingmao.platformsdk.verifynull.VerifyResult;
 import com.google.gson.Gson;
+
+import java.util.List;
 
 /**
  * Create by atu on 2020/8/14
@@ -25,7 +32,8 @@ class AccessManagement {
 
     private static void doLoginKey(PlatformCallback callback){
         String loginKeyUrl = ApiConstant.LOGIN_KEY;
-        OkHttpUtils.getInstance().doPost(loginKeyUrl,new Gson().toJson(prepareKey()),callback);
+        LoginKeyRequest loginKeyRequest = prepareKey();
+        OkHttpUtils.getInstance().doPost(loginKeyUrl,new Gson().toJson(loginKeyRequest),callback,StringUtils.ObjNotNull(loginKeyRequest));
     }
 
     /**
@@ -60,7 +68,7 @@ class AccessManagement {
                     public void onTokenInvalid(String msg) {
                         callback.onTokenInvalid(msg);
                     }
-                });
+                },StringUtils.ObjNotNull(request));
             }
 
             @Override
@@ -107,7 +115,7 @@ class AccessManagement {
                     public void onTokenInvalid(String msg) {
                         callback.onTokenInvalid(msg);
                     }
-                });
+                },StringUtils.ObjNotNull(request));
             }
 
             @Override
@@ -140,5 +148,14 @@ class AccessManagement {
             }
 
         });
+    }
+
+    /**
+     * 重置密码-旧密码
+     * @param request
+     * @param callback
+     */
+    public static void doResetPwdByPwd(ResetPwdReq request, PlatformStringCallback callback) {
+
     }
 }

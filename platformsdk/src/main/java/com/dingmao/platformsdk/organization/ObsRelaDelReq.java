@@ -1,16 +1,17 @@
 package com.dingmao.platformsdk.organization;
 
+import com.dingmao.platformsdk.verifynull.NotNull;
+
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Create by atu on 2020/8/19
  */
+@Getter
+@Setter
 public class ObsRelaDelReq {
+    @NotNull(fileName = "ID")
     private String role_job_rela_id;//模板岗位关联表主键id
 
-    public String getRole_job_rela_id() {
-        return role_job_rela_id;
-    }
-
-    public void setRole_job_rela_id(String role_job_rela_id) {
-        this.role_job_rela_id = role_job_rela_id;
-    }
 }

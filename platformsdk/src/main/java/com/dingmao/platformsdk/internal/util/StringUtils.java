@@ -1,7 +1,14 @@
 package com.dingmao.platformsdk.internal.util;
 
+import com.dingmao.platformsdk.verifynull.VerifyAnnotation;
+import com.dingmao.platformsdk.verifynull.VerifyResult;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Create by atu on 2020/8/12
@@ -38,5 +45,20 @@ public class StringUtils {
             out.append(new String(b, 0, n));
         }
         return out.toString();
+    }
+
+    public static String ObjNotNull(Object o){
+        List<VerifyResult> verify = VerifyAnnotation.verify(o);
+        String tips = VerifyAnnotation.showNullTips(verify);
+        return tips;
+    }
+
+    public static String obj2Json(Object o){
+        return new Gson().toJson(o);
+    }
+
+    public static String list2Json(List<Object> list){
+        JSONArray jsonArray = new JSONArray(list);
+        return jsonArray.toString();
     }
 }

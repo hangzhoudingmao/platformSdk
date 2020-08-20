@@ -56,6 +56,7 @@ import com.dingmao.platformsdk.interfaceservice.ServiceTreeReq;
 import com.dingmao.platformsdk.interfaceservice.SortCreateReq;
 import com.dingmao.platformsdk.interfaceservice.SortDelReq;
 import com.dingmao.platformsdk.interfaceservice.SortUpdateReq;
+import com.dingmao.platformsdk.internal.util.StringUtils;
 import com.dingmao.platformsdk.login.LoginByCodeReq;
 import com.dingmao.platformsdk.login.LoginByPwdReq;
 import com.dingmao.platformsdk.login.ValidKeyReq;
@@ -93,6 +94,13 @@ import com.dingmao.platformsdk.organization.OrgSubListReq;
 import com.dingmao.platformsdk.organization.OrgTreeReq;
 import com.dingmao.platformsdk.organization.OrgUpdateReq;
 import com.dingmao.platformsdk.organization.SubDeptListReq;
+import com.dingmao.platformsdk.systemmanagement.SysAuthReq;
+import com.dingmao.platformsdk.systemmanagement.SysDelVerReq;
+import com.dingmao.platformsdk.systemmanagement.SysLogReq;
+import com.dingmao.platformsdk.systemmanagement.SysPubVerReq;
+import com.dingmao.platformsdk.systemmanagement.SysUpdateReq;
+import com.dingmao.platformsdk.systemmanagement.SysUpdateVerReq;
+import com.dingmao.platformsdk.systemmanagement.SysVersionReq;
 import com.dingmao.platformsdk.systemresources.SourceAddReq;
 import com.dingmao.platformsdk.systemresources.SourceDataReq;
 import com.dingmao.platformsdk.systemresources.SourceListReq;
@@ -100,6 +108,24 @@ import com.dingmao.platformsdk.systemresources.SourceSortAddReq;
 import com.dingmao.platformsdk.systemresources.SourceSortDelReq;
 import com.dingmao.platformsdk.systemresources.SourceSortUpdateReq;
 import com.dingmao.platformsdk.systemresources.SourceUpdateReq;
+import com.dingmao.platformsdk.usermanagement.AssignAuthReq;
+import com.dingmao.platformsdk.usermanagement.CompJobListReq;
+import com.dingmao.platformsdk.usermanagement.CompUserListReq;
+import com.dingmao.platformsdk.usermanagement.JobAddReq;
+import com.dingmao.platformsdk.usermanagement.ResetCodeReq;
+import com.dingmao.platformsdk.usermanagement.ResetPwdReq;
+import com.dingmao.platformsdk.usermanagement.UserAddReq;
+import com.dingmao.platformsdk.usermanagement.UserAuthReq;
+import com.dingmao.platformsdk.usermanagement.UserDelReq;
+import com.dingmao.platformsdk.usermanagement.UserDetailReq;
+import com.dingmao.platformsdk.usermanagement.UserImprtReq;
+import com.dingmao.platformsdk.usermanagement.UserJobDelReq;
+import com.dingmao.platformsdk.usermanagement.UserJobListReq;
+import com.dingmao.platformsdk.usermanagement.UserListReq;
+import com.dingmao.platformsdk.usermanagement.UserMenuReq;
+import com.dingmao.platformsdk.usermanagement.UserMultiListReq;
+import com.dingmao.platformsdk.usermanagement.UserStateReq;
+import com.dingmao.platformsdk.usermanagement.UserUpdateReq;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -126,8 +152,8 @@ public class PlatformClient {
      * @param file
      * @param callback
      */
-    public static void doUploadFile(HashMap<String,String> map, File file,PlatformCallback callback){
-        OkHttpUtils.getInstance().doPostFile(ApiConstant.UPLOAD_FILE,map,file,callback);
+    public static void doUploadFile(HashMap<String,String> map, File file,String fileKey,PlatformCallback callback){
+        OkHttpUtils.getInstance().doPostFile(ApiConstant.UPLOAD_FILE,map,file,fileKey,callback);
     }
 
     /**
@@ -493,11 +519,11 @@ public class PlatformClient {
 
     /**
      * 验证码登录
-     * @param loginRequest
+     * @param request
      * @param callback
      */
-    public static void doLogin(LoginByCodeReq loginRequest, PlatformCallback callback){
-        AccessManagement.doLoginByCode(loginRequest,callback);
+    public static void doLogin(LoginByCodeReq request, PlatformCallback callback){
+        AccessManagement.doLoginByCode(request,callback);
     }
 
     /**
@@ -512,8 +538,8 @@ public class PlatformClient {
      * 验证token
      * @param callback
      */
-    public static void doValidToken(ValidTokenReq validTokenReq, PlatformStringCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.VALID_TOKEN,obj2Json(validTokenReq),callback);
+    public static void doValidToken(ValidTokenReq request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.VALID_TOKEN,obj2Json(request),callback);
     }
 
     /**
@@ -526,48 +552,48 @@ public class PlatformClient {
 
     /**
      * 短token获取长token
-     * @param translateTokenReq
+     * @param request
      * @param callback
      */
-    public static void doTransToken(TranslateTokenReq translateTokenReq,PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.TRANSLATE_TOKEN,obj2Json(translateTokenReq),callback);
+    public static void doTransToken(TranslateTokenReq request,PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.TRANSLATE_TOKEN,obj2Json(request),callback);
     }
 
     /**
      * 通用权限验证
-     * @param checkPowerReq
+     * @param request
      * @param callback
      */
-    public static void doCheckPower(CheckPowerReq checkPowerReq, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.VALID_POWER,obj2Json(checkPowerReq),callback);
+    public static void doCheckPower(CheckPowerReq request, PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.VALID_POWER,obj2Json(request),callback);
     }
 
     /**
      * 模拟登录
-     * @param simulateLoginReq
+     * @param request
      * @param callback
      */
-    public static void doLogin(SimulateLoginReq simulateLoginReq,PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.SIMULATE_LOGIN,obj2Json(simulateLoginReq),callback);
+    public static void doLogin(SimulateLoginReq request,PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.SIMULATE_LOGIN,obj2Json(request),callback);
     }
 
     /**
      * 设备接入判定
-     * @param equipCheckReq
+     * @param request
      * @param callback
      */
-    public static void doEquipCheck(EquipCheckReq equipCheckReq, PlatformStringCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.EQUIPMENT_USABLE,obj2Json(equipCheckReq),callback);
+    public static void doEquipCheck(EquipCheckReq request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.EQUIPMENT_USABLE,obj2Json(request),callback, StringUtils.ObjNotNull(request));
     }
 
     /**
      * 设备备案
-     * @param equipCreateReq
+     * @param request
      * @param callback
      */
-    public static void doEquipCreate(EquipCreateReq equipCreateReq, PlatformCallback callback){
-        Log.e("equipCreateReq===",obj2Json(equipCreateReq));
-        OkHttpUtils.getInstance().doPost(ApiConstant.EQUIPMENT_CREATE,obj2Json(equipCreateReq),callback);
+    public static void doEquipCreate(EquipCreateReq request, PlatformCallback callback){
+        Log.e("equipCreateReq===",obj2Json(request));
+        OkHttpUtils.getInstance().doPost(ApiConstant.EQUIPMENT_CREATE,obj2Json(request),callback);
     }
     /*******************接入管理end********************************************************************************************/
 
@@ -577,11 +603,11 @@ public class PlatformClient {
 
     /**
      * 通过名称反查组织信息
-     * @param orgCompDeptReq
+     * @param request
      * @param callback
      */
-    public static void doOrgDept(OrgCompDeptReq orgCompDeptReq, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_COMPANYDEPT,obj2Json(orgCompDeptReq),callback);
+    public static void doOrgDept(OrgCompDeptReq request, PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_COMPANYDEPT,obj2Json(request),callback);
     }
 
     /**
@@ -608,7 +634,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doOrgCompExist(OrgCompDeptMultiReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_CHECK_COMPANY_EXISTS,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_CHECK_COMPANY_EXISTS,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -881,24 +907,262 @@ public class PlatformClient {
     public static void doBelongOrgList(BelongOrgListReq request, PlatformCallback callback){
         OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_ORG_LIST_BY_DEPT,obj2Json(request),callback);
     }
-
-
     /*******************组织结构end********************************************************************************************/
 
+
+
     /*******************用户管理start********************************************************************************************/
+
+    /**
+     * 新增用户
+     * @param request
+     * @param callback
+     */
+    public static void doUserAdd(UserAddReq request, PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_ADD,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 删除用户与岗位关系
+     * @param request
+     * @param callback
+     */
+    public static void doUserJobDel(UserJobDelReq request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_JOB_DELETE,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 根据单位id获取本单位下用户列表
+     * @param request
+     * @param callback
+     */
+    public static void doUserList(CompUserListReq request, PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_LIST_BY_COMPANY,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 删除用户与岗位关系
+     * @param request
+     * @param callback
+     */
+    public static void doUserDel(UserDelReq request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_DELETE,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 根据单位id获取岗位列表
+     * @param request
+     * @param callback
+     */
+    public static void doUserJobList(CompJobListReq request, PlatformListCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_JOB_LIST_BY_COMPANY,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 批量导入用户（通过json）
+     * @param request
+     * @param callback
+     */
+    public static void doUserImprt(List<UserImprtReq> request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_IMPORT_JSON,list2Json(request),callback);
+    }
+
+    /**
+     * 根据用户id获取岗位列表
+     * @param request
+     * @param callback
+     */
+    public static void doUserJobList(UserJobListReq request, PlatformListCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_JOB_LIST_BY_USER,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 调整用户岗位
+     * @param request
+     * @param callback
+     */
+    public static void doJobAdd(JobAddReq request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_JOB_ADD,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 禁用/恢复 用户
+     * @param request
+     * @param callback
+     */
+    public static void doUserState(UserStateReq request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_STATUS_UPDATE,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 重置用户密码-旧密码
+     * @param request
+     * @param callback
+     */
+    public static void doUserPwd(ResetPwdReq request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_RESET_PWD_BY_PWD,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 重置用户密码-旧密码
+     * @param request
+     * @param callback
+     */
+    public static void doUserPwd(ResetCodeReq request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_RESET_PWD_BY_CODE,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 获取用户列表
+     * @param request
+     * @param callback
+     */
+    public static void doUserList(UserListReq request, PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_LIST,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 根据部门/岗位/用户id集合获取用户列表（支持单/多个）
+     * @param request
+     * @param callback
+     */
+    public static void doUserList(UserMultiListReq request, PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_LIST_BY_MULTI,obj2Json(request),callback);
+    }
+
+    /**
+     * 获取用户菜单
+     * @param request
+     * @param callback
+     */
+    public static void doUserMenu(UserMenuReq request, PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_GET_MENU,obj2Json(request),callback);
+    }
+
+    /**
+     * 获取用户权限
+     * @param request
+     * @param callback
+     */
+    public static void doUserAuth(UserAuthReq request, PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_GET_AUTHS,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 分配用户权限
+     * @param request
+     * @param callback
+     */
+    public static void doAssignAuth(AssignAuthReq request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_ASSIGN_OBJECT,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 获取用户详情
+     * @param request
+     * @param callback
+     */
+    public static void doUserDetail(UserDetailReq request, PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_GET_DETAIL,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 修改个人信息
+     * @param request
+     * @param callback
+     */
+    public static void doUserUpdate(UserUpdateReq request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_EDIT_USER,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
     /*******************用户管理end********************************************************************************************/
 
+
+
+
     /*******************系统管理********************************************************************************************/
+
+    /**
+     * 获取系统信息
+     * @param callback
+     */
+    public static void doSysInfo(PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.SYSTEM_GET_INFO,"",callback);
+    }
+
+    /**
+     * 修改系统信息
+     * @param callback
+     */
+    public static void doSysUpdate(SysUpdateReq request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.SYSTEM_EDIT_INFO,obj2Json(request),callback);
+    }
+
+    /**
+     * 系统-单位/账号授权子系统列表
+     * @param callback
+     */
+    public static void doSysAuth(SysAuthReq request, PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.SYSTEM_GET_AUTH_SYS_LIST,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 获取系统日志
+     * @param callback
+     */
+    public static void doSysLog(SysLogReq request, PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.SYSTEM_GET_LOG,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 获取系统版本
+     * @param callback
+     */
+    public static void doSysVersion(SysVersionReq request, PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.SYSTEM_GET_VERSION,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 发布版本
+     * @param callback
+     */
+    public static void doSysPubVer(SysPubVerReq request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.SYSTEM_PUBLISH_VERSION,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 编辑版本
+     * @param callback
+     */
+    public static void doSysUpdateVer(SysUpdateVerReq request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.SYSTEM_UPDATE_VERSION,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 删除版本
+     * @param callback
+     */
+    public static void doSysDelVer(SysDelVerReq request, PlatformStringCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.SYSTEM_DELETE_VERSION,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
     /*******************系统管理end********************************************************************************************/
+
+
+
 
     /*******************资源管理start********************************************************************************************/
     /*******************资源管理end********************************************************************************************/
 
+
+
+
     /*******************配置管理start********************************************************************************************/
     /*******************配置管理end********************************************************************************************/
 
-    /*******************接口服务start********************************************************************************************/
 
+
+
+    /*******************接口服务start********************************************************************************************/
     /**
      * 获取服务分类结构树
      * @param request
@@ -1055,6 +1319,8 @@ public class PlatformClient {
     }
 
 
+
+
     /*******************通用实体end********************************************************************************************/
 
 
@@ -1114,7 +1380,7 @@ public class PlatformClient {
         return new Gson().toJson(o);
     }
 
-    private static String list2Json(List<Object> list){
+    private static <T> String list2Json(List<T> list){
         JSONArray jsonArray = new JSONArray(list);
         return jsonArray.toString();
     }

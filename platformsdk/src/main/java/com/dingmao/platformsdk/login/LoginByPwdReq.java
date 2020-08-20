@@ -1,11 +1,18 @@
 package com.dingmao.platformsdk.login;
 
+import com.dingmao.platformsdk.verifynull.NotNull;
+
 /**
  * Create by atu on 2020/8/13
  */
 public class LoginByPwdReq {
+
+    @NotNull(fileName = "用户名")
     private String user_no;
+
+    @NotNull(fileName = "密码")
     private String password;
+
     private String login_type;
     private String system_no;
 

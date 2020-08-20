@@ -10,6 +10,7 @@ import com.dingmao.platformsdk.callback.PlatformListCallback;
 import com.dingmao.platformsdk.callback.PlatformStringCallback;
 import com.dingmao.platformsdk.insertmanagement.RefreshTokenRsp;
 import com.dingmao.platformsdk.internal.util.SPUtils;
+import com.dingmao.platformsdk.internal.util.StringUtils;
 
 import java.io.File;
 import java.util.Iterator;
@@ -67,6 +68,20 @@ public class OkHttpUtils {
      * @param callback
      */
     void doPost(String url, String params, PlatformCallback callback){
+        doPost(url, params, callback,"");
+    }
+
+    /**
+     * post处理返回对象
+     * @param url
+     * @param params
+     * @param callback
+     */
+    void doPost(String url, String params, PlatformCallback callback,String tip){
+        if (!StringUtils.isEmpty(tip)){
+            callback.onFailed(tip);
+            return;
+        }
         Request request = new Request.Builder().url(ApiConstant.BASE_URL + url)
                 .post(RequestBody.create(JSON,params))
                 .build();
@@ -74,6 +89,14 @@ public class OkHttpUtils {
     }
 
     void doPost(String url, String params, PlatformStringCallback callback){
+        doPost(url, params, callback,"");
+    }
+
+    void doPost(String url, String params, PlatformStringCallback callback,String tip){
+        if (!StringUtils.isEmpty(tip)){
+            callback.onFailed(tip);
+            return;
+        }
         Request request = new Request.Builder().url(ApiConstant.BASE_URL + url)
                 .post(RequestBody.create(JSON,params))
                 .build();
@@ -113,6 +136,20 @@ public class OkHttpUtils {
      * @param callback
      */
     void doPost(String url, String params, PlatformListCallback callback){
+        doPost(url, params, callback,"");
+    }
+
+    /**
+     * post 处理返回数组对象
+     * @param url
+     * @param params
+     * @param callback
+     */
+    void doPost(String url, String params, PlatformListCallback callback,String tip){
+        if (!StringUtils.isEmpty(tip)){
+            callback.onFailed(tip);
+            return;
+        }
         Request request = new Request.Builder().url(ApiConstant.BASE_URL + url)
                 .post(RequestBody.create(JSON,params))
                 .build();
@@ -126,14 +163,14 @@ public class OkHttpUtils {
      * @param file
      * @param callback
      */
-    void doPostFile(String url, Map<String,String> map,File file,PlatformCallback callback){
+    void doPostFile(String url, Map<String,String> map,File file,String fileKey,PlatformCallback callback){
         MultipartBody.Builder requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM);
         if (file == null){
             callback.onFailed("文件不能为空");
             return;
         }
         RequestBody body = RequestBody.create(MediaType.parse("image/*"), file);
-        requestBody.addFormDataPart("pic_file_apk",file.getName(),body);
+        requestBody.addFormDataPart(fileKey,file.getName(),body);
         if (map != null){
             for (Map.Entry entry:map.entrySet()){
                 requestBody.addFormDataPart(String.valueOf(entry.getKey()),String.valueOf(entry.getValue()));
