@@ -2,9 +2,15 @@ package com.dingmao.platformsdk.systemresources;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Create by atu on 2020/8/18
+ * 客户端获取资源信息
  */
+@Setter
+@Getter
 public class SourceDataRsp {
     /**
      * total_count : minim aute veniam cillum in
@@ -16,30 +22,9 @@ public class SourceDataRsp {
     private String total_page;
     private List<ListBean> list;
 
-    public String getTotal_count() {
-        return total_count;
-    }
 
-    public void setTotal_count(String total_count) {
-        this.total_count = total_count;
-    }
-
-    public String getTotal_page() {
-        return total_page;
-    }
-
-    public void setTotal_page(String total_page) {
-        this.total_page = total_page;
-    }
-
-    public List<ListBean> getList() {
-        return list;
-    }
-
-    public void setList(List<ListBean> list) {
-        this.list = list;
-    }
-
+    @Setter
+    @Getter
     public static class ListBean {
         /**
          * source_id : dolor eiusmod

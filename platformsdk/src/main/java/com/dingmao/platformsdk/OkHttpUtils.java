@@ -2,6 +2,7 @@ package com.dingmao.platformsdk;
 
 import android.net.Uri;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 
 
@@ -154,6 +155,16 @@ public class OkHttpUtils {
                 .post(RequestBody.create(JSON,params))
                 .build();
         mOkHttpClient.newCall(request).enqueue(callback);
+    }
+
+    /**
+     * post 提交文件
+     * @param url
+     * @param file
+     * @param callback
+     */
+    void doPostFile(String url, File file,String fileKey,PlatformCallback callback){
+        doPostFile(url,null, file, fileKey, callback);
     }
 
     /**

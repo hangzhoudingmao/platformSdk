@@ -1,25 +1,20 @@
 package com.dingmao.platformsdk.login;
 
+import com.dingmao.platformsdk.verifynull.NotNull;
+
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Create by atu on 2020/8/14
+ * 验证密钥
  */
+@Getter
+@Setter
 public class ValidKeyReq {
+    @NotNull(fileName = "秘钥")
     private String key;
+    @NotNull(fileName = "授权码")
     private String auth_code;
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getAuth_code() {
-        return auth_code;
-    }
-
-    public void setAuth_code(String auth_code) {
-        this.auth_code = auth_code;
-    }
 }

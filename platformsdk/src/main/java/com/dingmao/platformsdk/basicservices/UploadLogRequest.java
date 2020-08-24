@@ -1,43 +1,21 @@
 package com.dingmao.platformsdk.basicservices;
 
+import com.dingmao.platformsdk.verifynull.NotNull;
+
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Create by atu on 2020/8/17
+ * 上传日志
  */
+@Getter
+@Setter
 public class UploadLogRequest {
+    @NotNull(fileName = "日志类型")
     private String log_type;
     private String message;
     private String content;
     private String create_date;
 
-    public String getLog_type() {
-        return log_type;
-    }
-
-    public void setLog_type(String log_type) {
-        this.log_type = log_type;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getCreate_date() {
-        return create_date;
-    }
-
-    public void setCreate_date(String create_date) {
-        this.create_date = create_date;
-    }
 }

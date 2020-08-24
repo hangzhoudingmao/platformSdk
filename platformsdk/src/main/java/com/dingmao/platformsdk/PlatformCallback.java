@@ -58,12 +58,10 @@ public abstract class PlatformCallback<T> implements Callback {
                 if (jsonObject.getInt("code") == 0) {
                     PlatformBaseResponse platformBaseResponse = gson.fromJson(json, PlatformBaseResponse.class);
                     json = gson.toJson(platformBaseResponse.getData());
-                    Log.e("json=======",json);
                     Class clz = this.getClass();
                     ParameterizedType type = (ParameterizedType) clz.getGenericSuperclass();
                     //获取泛型参数的实际类型
                     Type[] types = type.getActualTypeArguments();
-                    Log.e("getSuperclass======",types[0] + "");
                     Class<T> cls = (Class<T>) types[0];
                     T t = gson.fromJson(json, cls);
                     mHandler.post(() -> {

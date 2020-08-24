@@ -4,9 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Create by atu on 2020/8/17
  */
+@Getter
+@Setter
 public class FileListResponse {
 
     /**
@@ -23,46 +28,8 @@ public class FileListResponse {
     private double cur_page;
     private List<FileListBean> list;
 
-    public double getTotal_count() {
-        return total_count;
-    }
-
-    public void setTotal_count(double total_count) {
-        this.total_count = total_count;
-    }
-
-    public double getTotal_page() {
-        return total_page;
-    }
-
-    public void setTotal_page(double total_page) {
-        this.total_page = total_page;
-    }
-
-    public double getPage_size() {
-        return page_size;
-    }
-
-    public void setPage_size(double page_size) {
-        this.page_size = page_size;
-    }
-
-    public double getCur_page() {
-        return cur_page;
-    }
-
-    public void setCur_page(double cur_page) {
-        this.cur_page = cur_page;
-    }
-
-    public List<FileListBean> getList() {
-        return list;
-    }
-
-    public void setList(List<FileListBean> list) {
-        this.list = list;
-    }
-
+    @Getter
+    @Setter
     public class FileListBean {
         /**
          * file_id : non officia
@@ -95,108 +62,5 @@ public class FileListResponse {
         private String create_name;
         private String is_delete;
 
-        public String getFile_id() {
-            return file_id;
-        }
-
-        public void setFile_id(String file_id) {
-            this.file_id = file_id;
-        }
-
-        public String getContent_type() {
-            return content_type;
-        }
-
-        public void setContent_type(String content_type) {
-            this.content_type = content_type;
-        }
-
-        public String getFile_name() {
-            return file_name;
-        }
-
-        public void setFile_name(String file_name) {
-            this.file_name = file_name;
-        }
-
-        public String getFile_size() {
-            return file_size;
-        }
-
-        public void setFile_size(String file_size) {
-            this.file_size = file_size;
-        }
-
-        public String getStore_type() {
-            return store_type;
-        }
-
-        public void setStore_type(String store_type) {
-            this.store_type = store_type;
-        }
-
-        public String getFile_path() {
-            return file_path;
-        }
-
-        public void setFile_path(String file_path) {
-            this.file_path = file_path;
-        }
-
-        public String get_$AbsolutePath121() {
-            return _$AbsolutePath121;
-        }
-
-        public void set_$AbsolutePath121(String _$AbsolutePath121) {
-            this._$AbsolutePath121 = _$AbsolutePath121;
-        }
-
-        public String getModule() {
-            return module;
-        }
-
-        public void setModule(String module) {
-            this.module = module;
-        }
-
-        public String getRela_id() {
-            return rela_id;
-        }
-
-        public void setRela_id(String rela_id) {
-            this.rela_id = rela_id;
-        }
-
-        public String getCreate_date() {
-            return create_date;
-        }
-
-        public void setCreate_date(String create_date) {
-            this.create_date = create_date;
-        }
-
-        public String getCreate_id() {
-            return create_id;
-        }
-
-        public void setCreate_id(String create_id) {
-            this.create_id = create_id;
-        }
-
-        public String getCreate_name() {
-            return create_name;
-        }
-
-        public void setCreate_name(String create_name) {
-            this.create_name = create_name;
-        }
-
-        public String getIs_delete() {
-            return is_delete;
-        }
-
-        public void setIs_delete(String is_delete) {
-            this.is_delete = is_delete;
-        }
     }
 }

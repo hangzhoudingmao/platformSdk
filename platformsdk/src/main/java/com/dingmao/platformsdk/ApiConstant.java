@@ -5,9 +5,14 @@ package com.dingmao.platformsdk;
  */
 public class ApiConstant {
     public static final String SYSTEM_NO = "warehouse";//系统编码
-    protected static final String AUTH_CODE = "1F7514E9-FA11-CA29-FB8A-EEC6E1F534B7";//授权码
+//    public static final String AUTH_CODE = "1F7514E9-FA11-CA29-FB8A-EEC6E1F534B7";//授权码
+    public static final String AUTH_CODE = "6B17DC47-FA3D-2E96-89D4-F783F1A19C95";//授权码
 
-    public static final String BASE_URL = "http://test_console_api.ihibuilding.cn/";
+    private static final String BASE_URL_CENTER_DEV = "http://dev_console_api.ihibuilding.cn/";
+    private static final String BASE_URL_CENTER_TEST = "http://test_console_api.ihibuilding.cn/";
+    private static final String BASE_URL_CENTER_FORMAL = "http://console_api.hibuilding.cn/";
+
+    public static final String BASE_URL = BASE_URL_CENTER_DEV;
 
     public static final String KEY_TOKEN = "KEY_TOKEN";
     public static final String KEY_REFRESH_TOKEN = "KEY_REFRESH_TOKEN";
@@ -35,15 +40,15 @@ public class ApiConstant {
      *
      *  7.系统管理 ✔
      *
-     *  8.资源管理 ✖
+     *  8.资源管理 ✔
      *
-     *  9.配置管理 ✖
+     *  9.配置管理 ✔
      *
      *  10.接口服务 ✔
      *
-     *  11.注册相关 ✖
+     *  11.注册相关 ✔
      *
-     *  12.大屏数据 ✖
+     *  12.大屏数据 ✔
      *
      *  13.通用实体 ✔
      */
@@ -51,8 +56,8 @@ public class ApiConstant {
     /**
      * ---------基础服务start--------------
      ***/
-    static final String UPLOAD_FILE =                   "api/v1/base/file/upload_file";//上传文件
-    static final String DUMP_TABLE_DATA =               "aapi/v1/dump/dump_table_data";//导出权限项、菜单、标准码表数据SQL脚本
+    public static final String UPLOAD_FILE =                   "api/v1/base/file/upload_file";//上传文件
+    static final String DUMP_TABLE_DATA =               "api/v1/dump/dump_table_data";//导出权限项、菜单、标准码表数据SQL脚本
     static final String GET_FILE_LIST =                 "api/v1/base/file/get_list";//获取文件列表
     static final String DELETE_FILE =                   "api/v1/base/file/delete_file";//删除文件
     static final String UPLOAD_LOG =                    "api/v1/access/log/upload_log";//日志上报
@@ -217,20 +222,98 @@ public class ApiConstant {
     /**********系统管理start**************************************/
     static final String SYSTEM_GET_INFO =                  "api/v1/system/info/get_info";//获取系统信息
     static final String SYSTEM_EDIT_INFO =                 "api/v1/system/info/edit_info";//修改系统信息
-    static final String SYSTEM_GET_AUTH_SYS_LIST =         "/api/v1/system/p_system/get_auth_sys_list";//系统-单位/账号授权子系统列表
-    static final String SYSTEM_GET_LOG =                   "/api/v1/system/log/get_log";//获取系统日志
-    static final String SYSTEM_GET_VERSION =               "/api/v1/system/version/get_version";//获取系统版本
-    static final String SYSTEM_PUBLISH_VERSION =           "/api/v1/system/version/publish_version";//发布版本
-    static final String SYSTEM_UPDATE_VERSION =            "/api/v1/system/version/update_version";//编辑版本
-    static final String SYSTEM_DELETE_VERSION =            "/api/v1/system/version/delete_version";//删除版本
-    static final String SYSTEM_CHECK_VERSION =             "/api/v1/system/version/check_version";//检查版本是否需要更新
-    static final String SYSTEM_DOWNLOAD_LAST_VERSION =     "/api/v1/system/version/download_last_version";//下载版本安装包
+    static final String SYSTEM_GET_AUTH_SYS_LIST =         "api/v1/system/p_system/get_auth_sys_list";//系统-单位/账号授权子系统列表
+    static final String SYSTEM_GET_LOG =                   "api/v1/system/log/get_log";//获取系统日志
+    static final String SYSTEM_GET_VERSION =               "api/v1/system/version/get_version";//获取系统版本
+    static final String SYSTEM_PUBLISH_VERSION =           "api/v1/system/version/publish_version";//发布版本
+    static final String SYSTEM_UPDATE_VERSION =            "api/v1/system/version/update_version";//编辑版本
+    static final String SYSTEM_DELETE_VERSION =            "api/v1/system/version/delete_version";//删除版本
+    static final String SYSTEM_CHECK_VERSION =             "api/v1/system/version/check_version";//检查版本是否需要更新
+    static final String SYSTEM_DOWNLOAD_LAST_VERSION =     "api/v1/system/version/download_last_version";//下载版本安装包
     static final String SYSTEM_GET_SITE_CONFIG_DETAIL =    "api/v1/system/api_v1_b_site_config/get_site_config_detail";//系统管理-系统配置-获取基础配置
     /**********系统管理end**************************************/
 
 
 
-    /**********系统管理end**************************************/
+    /**********资源管理start**************************************/
+    public static final String RESOURCE_SORT_TREE =                    "api/v1/res/p_object/get_tree";//获取权限项分类树
+    public static final String RESOURCE_CREATE_OBJECT_CATE =           "api/v1/res/p_object/create_object_cate";//新增权限项分类
+    static final String RESOURCE_UPDATE_OBJECT_CATE =           "api/v1/res/p_object/update_object_cate";//修改权限项分类
+    static final String RESOURCE_DELETE_OBJECT_CATE =           "api/v1/res/p_object/delete_object_cate";//删除权限项分类
 
-    /**********系统管理end**************************************/
+    static final String RESOURCE_AUTH_LIST =                    "api/v1/res/p_object/get_list";//获取权限列表
+    static final String RESOURCE_CREATE_OBJECT =                "api/v1/res/p_object/create_object";//添加权限项
+    static final String RESOURCE_UPDATE_OBJECT =                "api/v1/res/p_object/update_object";//修改权限项
+    static final String RESOURCE_DELETE_OBJECT =                "api/v1/res/p_object/delete_object";//删除权限项
+
+    static final String RESOURCE_MENU_LIST =                    "api/v1/res/menu/get_list";//获取菜单列表
+    static final String RESOURCE_CREATE_MENU =                  "api/v1/res/menu/create_menu";//新增菜单
+    static final String RESOURCE_UPDATE_MENU =                  "api/v1/res/menu/update_menu";//修改菜单
+    static final String RESOURCE_DELETE_MENU =                  "api/v1/res/menu/delete_menu";//删除菜单
+
+    static final String RESOURCE_MENU_TREE =                    "api/v1/res/menu/get_tree";//获取菜单目录树
+    static final String RESOURCE_CREATE_MENU_CATE =             "api/v1/res/menu/create_menu_cate";//新增菜单目录
+    static final String RESOURCE_UPDATE_MENU_CATE =             "api/v1/res/menu/update_menu_cate";//修改菜单目录
+    static final String RESOURCE_DELETE_MENU_CATE =             "api/v1/res/menu/delete_menu_cate";//删除菜单目录
+
+    static final String RESOURCE_TEMPLATE_LIST =                "api/v1/res/template/get_list";//获取权限模板列表
+    static final String RESOURCE_TEMPLATE_CREATE_TPL =          "api/v1/res/template/create_tpl";//添加权限模板
+    static final String RESOURCE_TEMPLATE_UPDATE_TPL =          "api/v1/res/template/update_tpl";//修改权限模板
+    static final String RESOURCE_TEMPLATE_DELETE_TPL =          "api/v1/res/template/delete_tpl";//删除权限模板
+
+    static final String RESOURCE_TEMPLATE_TPL_OBJECTS =          "api/v1/res/template/get_tpl_objects";//获取权限模板权限集合
+    static final String RESOURCE_TEMPLATE_DELETE_TPL_OBJECT =    "api/v1/res/template/delete_tpl_object";//删除权限模板权限
+    static final String RESOURCE_TEMPLATE_CREATE_TPL_OBJECT =    "api/v1/res/template/create_tpl_object";//分配权限模板权限
+
+    /**********资源管理end**************************************/
+
+
+    /**********配置管理start**************************************/
+    static final String CONFIG_GET_DIR_TREE =           "api/v1/config/code/get_dir_tree";//获取标准码分类结构树
+    static final String CONFIG_ADD_CODE_SORT =          "api/v1/config/code/add_code_sort";//新增标准代码分类
+    static final String CONFIG_EDIT_CODE_SORT =         "api/v1/config/code/edit_code_sort";//修改标准代码分类
+    static final String CONFIG_DELETE_CODE_SORT =       "api/v1/config/code/delete_code_sort";//删除标准代码分类
+
+    static final String CONFIG_GET_CODELIST =           "api/v1/config/code/get_codelist";//获取代码值列表
+    static final String CONFIG_GET_CODES_LIST =         "api/v1/config/code/get_codes_list";//获取代码值列表(多个)
+    static final String CONFIG_ADD_CODES =              "api/v1/config/code/add_codes";//新增代码值
+    static final String CONFIG_EDIT_CODE =              "api/v1/config/code/edit_code";//修改代码值
+    static final String CONFIG_DELETE_CODE =            "api/v1/config/code/delete_code";//删除代码值
+
+    static final String CONFIG_GET_TREE=                "api/v1/config/para/get_tree";//获取参数分类树
+    static final String CONFIG_ADD_PARA_SORT =          "api/v1/config/para/add_para_sort";//新增参数分类
+    static final String CONFIG_EDIT_PARA_SORT =         "api/v1/config/para/edit_para_sort";//修改参数分类
+    static final String CONFIG_DELETE_PARA_SORT =       "api/v1/config/para/delete_para_sort";//删除参数分类
+
+    static final String CONFIG_GET_LIST =               "api/v1/config/para/get_list";//获取参数列表
+    static final String CONFIG_GET_PARA =               "api/v1/config/para/get_para";//获取参数值
+    static final String CONFIG_ADD_PARA=                "api/v1/config/para/add_para";//新增参数
+    static final String CONFIG_EDIT_PARA=               "api/v1/config/para/edit_para";//修改参数
+    static final String CONFIG_DELETE_PARA=             "api/v1/config/para/delete_para";//删除参数
+    static final String CONFIG_GET_CATEG_TREE =         "api/v1/config/b_categ/get_categ_tree";//获取通用分类结构树
+    /**********配置管理end**************************************/
+
+
+    /**********注册相关start**************************************/
+    static final String REGISTER_CREATE_VALIDATE_CODE =             "api/v1/access/login/create_validate_code";//登录前获取验证码（注册、修改密码等）
+    static final String REGISTER_SEND_VALIDATE_CODE =               "api/v1/access/login/send_validate_code";//发送验证码（不关注用途）
+    static final String REGISTER_USER_REGISTER =                    "api/v1/access/login/user_register";//（验证码）直接注册帐号-无需token
+    static final String REGISTER_USER_REGISTER_PWD =                "api/v1/access/login/user_register_pwd";//（密码）直接注册帐号-无需token
+    static final String REGISTER =                                  "api/v1/access/login/register";//注册
+    static final String REGISTER_CREATE_USER_REG =                  "api/v1/access/p_user_reg/create_user_reg";//注册用户-新增
+    static final String REGISTER_SAVE_FILL_REGISTER_INFO =          "api/v1/access/o_company_apply/save_fill_register_info";//完善资料
+    static final String REGISTER_GET_USER_REG_LIST =                "api/v1/access/p_user_reg/get_user_reg_list";//审核列表
+    static final String REGISTER_GET_USER_REG_DETAIL =              "api/v1/access/p_user_reg/get_user_reg_detail";//注册用户-详情
+    static final String REGISTER_GET_COMPANY_APPLY_DETAIL =         "api/v1/access/o_company_apply/get_company_apply_detail";//单位入驻-详情
+    static final String REGISTER_UPDATE_USER_REG =                  "api/v1/access/p_user_reg/update_user_reg";//注册用户-修改（审核是否通过）
+    static final String REGISTER_AUDIT_UPDATE_COMPANY_APPLY =       "api/v1/access/o_company_apply/audit_update_company_apply";//单位入驻-审核
+    static final String REGISTER_UPDATE_USER_REG_STAFF =            "api/v1/access/p_user_reg/update_user_reg_staff";//注册用户审核--普通用户审核是否通过
+    static final String REGISTER_GET_USER_REG_AUDIT_LIST =          "api/v1/access/p_user_reg/get_user_reg_audit_list";//审核记录
+    /**********注册相关end**************************************/
+
+
+    /**********大屏数据start**************************************/
+    static final String SCREEN_GET_INDEX_DATA_LIST      =       "api/v1/screen/screen_index_data/get_index_data_list";//大屏--获取数据
+    static final String SCREEN_CREATE_DATA              =       "api/v1/screen/screen_index_data/create_data";//大屏数据--数据写入
+    /**********大屏数据end**************************************/
 }

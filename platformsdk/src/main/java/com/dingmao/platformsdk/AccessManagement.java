@@ -135,7 +135,7 @@ class AccessManagement {
      * @param callback
      */
     public static void doLogout(String url, PlatformStringCallback callback) {
-        OkHttpUtils.getInstance().doPost(url,null,new PlatformStringCallback(){
+        OkHttpUtils.getInstance().doPost(url,"",new PlatformStringCallback(){
             @Override
             public void onSuccess(String msg) {
                 SPUtils.clear(PlatformSDK.getContext());

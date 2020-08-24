@@ -1,8 +1,14 @@
 package com.dingmao.platformsdk.coderulemanagement;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Create by atu on 2020/8/17
+ * 编码规则分解-树
  */
+@Setter
+@Getter
 public class CodeRuleResolveReq {
     /**
      * 查询用途类型
@@ -17,19 +23,4 @@ public class CodeRuleResolveReq {
      */
     private String company_id;
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getCompany_id() {
-        return company_id;
-    }
-
-    public void setCompany_id(String company_id) {
-        this.company_id = company_id;
-    }
 }

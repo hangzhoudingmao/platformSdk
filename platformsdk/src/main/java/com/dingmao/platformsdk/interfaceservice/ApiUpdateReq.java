@@ -1,43 +1,20 @@
 package com.dingmao.platformsdk.interfaceservice;
 
+import com.dingmao.platformsdk.verifynull.NotNull;
+
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Create by atu on 2020/8/19
  */
+@Setter
+@Getter
 public class ApiUpdateReq {
+    @NotNull(fileName = "分类编号")
     private String api_id;//分类编号
     private String api_name;//接口名称
     private String api_url;//地址
     private String remark;//说明
 
-    public String getApi_id() {
-        return api_id;
-    }
-
-    public void setApi_id(String api_id) {
-        this.api_id = api_id;
-    }
-
-    public String getApi_name() {
-        return api_name;
-    }
-
-    public void setApi_name(String api_name) {
-        this.api_name = api_name;
-    }
-
-    public String getApi_url() {
-        return api_url;
-    }
-
-    public void setApi_url(String api_url) {
-        this.api_url = api_url;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
 }

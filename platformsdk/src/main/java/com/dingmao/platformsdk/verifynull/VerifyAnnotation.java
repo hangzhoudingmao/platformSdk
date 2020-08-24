@@ -26,10 +26,10 @@ public class VerifyAnnotation {
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-                Log.e("=obj===","=="+obj.toString());
+                Log.e("=obj=null","=="+obj);
                 if (obj instanceof String){
                     if (TextUtils.isEmpty((String)obj)){
-                        Log.e("=obj=null","=="+obj.toString());
+                        Log.e("=isEmpty=null","=="+obj.toString());
                         NotNull annotation = field.getAnnotation(NotNull.class);
                         VerifyResult verifyResult = new VerifyResult();
                         verifyResult.setMsg(annotation.fileName() + "不能为空");
@@ -43,6 +43,12 @@ public class VerifyAnnotation {
                         verifyResult.setMsg(annotation.fileName() + "不能为空");
                         verifyResults.add(verifyResult);
                     }
+                }
+                else if (obj == null){
+                    NotNull annotation = field.getAnnotation(NotNull.class);
+                    VerifyResult verifyResult = new VerifyResult();
+                    verifyResult.setMsg(annotation.fileName() + "不能为空");
+                    verifyResults.add(verifyResult);
                 }
             }
         }

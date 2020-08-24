@@ -1,12 +1,21 @@
 package com.dingmao.platformsdkdemo;
 
 import android.content.Context;
+import android.os.Environment;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
+
+import com.dingmao.platformsdk.ApiConstant;
+import com.dingmao.platformsdk.PlatformCallback;
+import com.dingmao.platformsdk.PlatformClient;
+import com.dingmao.platformsdk.basicservices.UploadFileResponse;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
 
 import static org.junit.Assert.*;
 
@@ -24,4 +33,6 @@ public class ExampleInstrumentedTest {
 
         assertEquals("com.dingmao.platformsdk.test", appContext.getPackageName());
     }
+
+
 }
