@@ -2,9 +2,14 @@ package com.dingmao.platformsdk.organization;
 
 import com.dingmao.platformsdk.verifynull.NotNull;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Create by atu on 2020/8/19
  */
+@Getter
+@Setter
 public class ObsUserDelReq {
     private String user_id;//节用户id（组织、部门（node_type值为1或2）人员列表移除时，改参数必传）
     private String job_user_id;//岗位用户id（node_type值为3时，改参数必传）

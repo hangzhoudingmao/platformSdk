@@ -4,6 +4,7 @@ package com.dingmao.platformsdkdemo;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -14,14 +15,35 @@ import com.bumptech.glide.Glide;
 import com.dingmao.platformsdk.PlatformCallback;
 import com.dingmao.platformsdk.PlatformClient;
 import com.dingmao.platformsdk.PlatformSDK;
+import com.dingmao.platformsdk.callback.PlatformDownloadCallback;
 import com.dingmao.platformsdk.callback.PlatformListCallback;
 import com.dingmao.platformsdk.callback.PlatformStringCallback;
+import com.dingmao.platformsdk.internal.util.StringUtils;
 import com.dingmao.platformsdk.login.LoginByPwdReq;
 import com.dingmao.platformsdk.login.LoginResponse;
+import com.dingmao.platformsdk.organization.AccountAddReq;
+import com.dingmao.platformsdk.organization.AccountListReq;
+import com.dingmao.platformsdk.organization.AccountListRsp;
+import com.dingmao.platformsdk.organization.BelongOrgListReq;
+import com.dingmao.platformsdk.organization.BelongOrgListRsp;
 import com.dingmao.platformsdk.organization.DeptDelReq;
+import com.dingmao.platformsdk.organization.DeptMultiListReq;
+import com.dingmao.platformsdk.organization.DeptMultiListRsp;
+import com.dingmao.platformsdk.organization.DeptSubListReq;
+import com.dingmao.platformsdk.organization.DeptSubListRsp;
 import com.dingmao.platformsdk.organization.DeptUpdateReq;
 import com.dingmao.platformsdk.organization.JobDelReq;
+import com.dingmao.platformsdk.organization.JobPowerListReq;
+import com.dingmao.platformsdk.organization.JobPowerListRsp;
 import com.dingmao.platformsdk.organization.JobUpdateReq;
+import com.dingmao.platformsdk.organization.ObsListReq;
+import com.dingmao.platformsdk.organization.ObsListRsp;
+import com.dingmao.platformsdk.organization.ObsPowerListReq;
+import com.dingmao.platformsdk.organization.ObsPowerListRsp;
+import com.dingmao.platformsdk.organization.ObsRelaDelReq;
+import com.dingmao.platformsdk.organization.ObsRelaListReq;
+import com.dingmao.platformsdk.organization.ObsRelaListRsp;
+import com.dingmao.platformsdk.organization.ObsUserDelReq;
 import com.dingmao.platformsdk.organization.OrgCheckCompReq;
 import com.dingmao.platformsdk.organization.OrgCheckCompRsp;
 import com.dingmao.platformsdk.organization.OrgCompDeptMultiReq;
@@ -31,22 +53,46 @@ import com.dingmao.platformsdk.organization.OrgCompListRsp;
 import com.dingmao.platformsdk.organization.OrgCompUpdateReq;
 import com.dingmao.platformsdk.organization.OrgCompUpdateRsp;
 import com.dingmao.platformsdk.organization.OrgDelReq;
+import com.dingmao.platformsdk.organization.OrgJobAddReq;
+import com.dingmao.platformsdk.organization.OrgJobListReq;
+import com.dingmao.platformsdk.organization.OrgJobListRsp;
+import com.dingmao.platformsdk.organization.OrgMultiListReq;
+import com.dingmao.platformsdk.organization.OrgMultiListRsp;
 import com.dingmao.platformsdk.organization.OrgObsAddDeptReq;
 import com.dingmao.platformsdk.organization.OrgObsAddJobReq;
 import com.dingmao.platformsdk.organization.OrgObsAddOrgReq;
 import com.dingmao.platformsdk.organization.OrgObsAddReq;
 import com.dingmao.platformsdk.organization.OrgObsAddRsp;
+import com.dingmao.platformsdk.organization.OrgSubListReq;
+import com.dingmao.platformsdk.organization.OrgSubListRsp;
 import com.dingmao.platformsdk.organization.OrgTreeReq;
 import com.dingmao.platformsdk.organization.OrgTreeRsp;
 import com.dingmao.platformsdk.organization.OrgUpdateReq;
+import com.dingmao.platformsdk.organization.SubDeptListReq;
+import com.dingmao.platformsdk.organization.SubDeptListRsp;
+import com.dingmao.platformsdk.usermanagement.CompJobListReq;
+import com.dingmao.platformsdk.usermanagement.CompJobListRsp;
+import com.dingmao.platformsdk.usermanagement.CompUserListReq;
+import com.dingmao.platformsdk.usermanagement.CompUserListRsp;
+import com.dingmao.platformsdk.usermanagement.UserAddReq;
+import com.dingmao.platformsdk.usermanagement.UserAddRsp;
+import com.dingmao.platformsdk.usermanagement.UserDelReq;
+import com.dingmao.platformsdk.usermanagement.UserJobDelReq;
+import com.dingmao.platformsdk.usermanagement.UserJobListRsp;
 import com.google.gson.Gson;
+import com.hu.freemarkerlibs.Generator;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         PlatformSDK.init(getApplication());
+
     }
 
     public void login(View view) {
@@ -135,11 +182,15 @@ public class MainActivity extends AppCompatActivity {
     //city_no=110100
     //area_no=110101
     public void create(View view) {
-        JobDelReq request = new JobDelReq();
-        request.setJob_id("79");
-        PlatformClient.doJobDel(request,new PlatformStringCallback() {
+        CompJobListReq request = new CompJobListReq();
+//        request.setUser_id("504");
+        Map<String,String> map = new HashMap<>();
+        map.put("file_name","systemUser.xls");
+        String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        PlatformClient.doUserTempDown(map,absolutePath,new PlatformDownloadCallback() {
             @Override
             public void onSuccess(String o) {
+                Log.e("======",o);
                 Toast.makeText(MainActivity.this,o + "", Toast.LENGTH_SHORT).show();
             }
 
@@ -156,7 +207,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void freemarker(View view) {
-
+        String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        Log.e("===absolutePath===",absolutePath);
+        File file = new File(absolutePath);
+        if (!file.exists()){
+            file.mkdir();
+        }
+        String tempFile = absolutePath + "/main.ftl";
+        if (!new File(tempFile).exists()){
+            try {
+                InputStream open = getResources().getAssets().open("temp.ftl");
+                FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
+                byte[] buffer = new byte[7168];
+                int count = 0;
+                while ((count = open.read()) > 0){
+                    fileOutputStream.write(buffer,0,count);
+                }
+                fileOutputStream.flush();
+                fileOutputStream.close();
+                open.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        TempUtils tempUtils = new TempUtils();
+        try {
+            tempUtils.create(absolutePath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

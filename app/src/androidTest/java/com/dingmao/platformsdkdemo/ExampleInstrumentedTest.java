@@ -1,14 +1,12 @@
 package com.dingmao.platformsdkdemo;
 
 import android.content.Context;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 
-import androidx.test.InstrumentationRegistry;
-import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.*;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -18,10 +16,16 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Test
-    public void useAppContext() {
+    public void testuseAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-
-        assertEquals("com.dingmao.platformsdk", appContext.getPackageName());
+//
+//        assertEquals("com.dingmao.platformsdk", appContext.getPackageName());
+        TempUtils tempUtils = new TempUtils();
+        try {
+//            tempUtils.create(tempFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.dingmao.platformsdk.organization;
 
+import com.dingmao.platformsdk.verifynull.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DeptSubListReq {
+    @NotNull(fileName = "部门编码")
     private String dept_no;//部门编码
 
 }

@@ -19,6 +19,7 @@ import com.dingmao.platformsdk.basicservices.SmsListRequest;
 import com.dingmao.platformsdk.basicservices.SmsTempCreateRequest;
 import com.dingmao.platformsdk.basicservices.SmsTempGetRequest;
 import com.dingmao.platformsdk.basicservices.TableDataRequest;
+import com.dingmao.platformsdk.callback.PlatformDownloadCallback;
 import com.dingmao.platformsdk.callback.PlatformListCallback;
 import com.dingmao.platformsdk.callback.PlatformStringCallback;
 import com.dingmao.platformsdk.coderulemanagement.CodeRecordReq;
@@ -58,6 +59,7 @@ import com.dingmao.platformsdk.configurationmanagement.ParaReq;
 import com.dingmao.platformsdk.configurationmanagement.ParaSortTreeReq;
 import com.dingmao.platformsdk.configurationmanagement.ParaSortUpdateReq;
 import com.dingmao.platformsdk.configurationmanagement.ParaUpdateReq;
+import com.dingmao.platformsdk.http.HttpUtils;
 import com.dingmao.platformsdk.insertmanagement.CheckPowerReq;
 import com.dingmao.platformsdk.insertmanagement.EquipCheckReq;
 import com.dingmao.platformsdk.insertmanagement.EquipCreateReq;
@@ -827,7 +829,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doAccountList(AccountListReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_ACCOUNT_LIST,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_ACCOUNT_LIST,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -836,7 +838,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doAccountAdd(AccountAddReq request, PlatformStringCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_BATCH_CREATE_JOB_USER,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_BATCH_CREATE_JOB_USER,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -845,7 +847,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doOrgJobList(OrgJobListReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_AUTH_JOB_LIST,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_AUTH_JOB_LIST,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -854,7 +856,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doOrgJobAdd(OrgJobAddReq request, PlatformStringCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_BATCH_CREATE_AUTH_JOB_RELA,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_BATCH_CREATE_AUTH_JOB_RELA,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -863,7 +865,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doObsList(ObsListReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_JOB_USER_LIST,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_JOB_USER_LIST,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -872,7 +874,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doObsUserDel(ObsUserDelReq request, PlatformStringCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_DELETE_JOB_USER,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_DELETE_JOB_USER,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -881,7 +883,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doObsRelaList(ObsRelaListReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_AUTH_JOB_RELA_LIST,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_AUTH_JOB_RELA_LIST,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -890,7 +892,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doObsRelaDel(ObsRelaDelReq request, PlatformStringCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_DELETE_AUTH_JOB_RELA,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_DELETE_AUTH_JOB_RELA,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -899,7 +901,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doObsPowerList(ObsPowerListReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_AUTH_OBJECT_RELA_LIST,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_AUTH_OBJECT_RELA_LIST,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -908,7 +910,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doJobPowerList(JobPowerListReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_OBJECT,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_OBJECT,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -917,7 +919,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doOrgSubList(OrgSubListReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_CURRENT_AND_SUB_ORG_LIST,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_CURRENT_AND_SUB_ORG_LIST,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -926,7 +928,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doOrgMultiList(OrgMultiListReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_ORG_LIST_BY_NOS,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_ORG_LIST_BY_NOS,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -935,7 +937,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doDeptSubList(DeptSubListReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_CURRENT_AND_SUB_DEPT_LIST,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_CURRENT_AND_SUB_DEPT_LIST,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -944,7 +946,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doSubDeptList(SubDeptListReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_CURRENT_AND_SUB_DEPT_BY_NOS_LIST,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_CURRENT_AND_SUB_DEPT_BY_NOS_LIST,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -953,7 +955,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doDeptMultiList(DeptMultiListReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_DEPT_LIST_BY_IDS,obj2Json(request),callback);
+        OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_DEPT_LIST_BY_IDS,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -963,6 +965,14 @@ public class PlatformClient {
      */
     public static void doBelongOrgList(BelongOrgListReq request, PlatformCallback callback){
         OkHttpUtils.getInstance().doPost(ApiConstant.ORG_GET_ORG_LIST_BY_DEPT,obj2Json(request),callback);
+    }
+
+    /**
+     * 根据部门表字段参数获取所属组织信息（支持批量）
+     * @param callback
+     */
+    public static void doBelongOrgList(PlatformCallback callback){
+        doBelongOrgList(null,callback);
     }
     /*******************组织结构end********************************************************************************************/
 
@@ -993,7 +1003,7 @@ public class PlatformClient {
      * @param request
      * @param callback
      */
-    public static void doUserList(CompUserListReq request, PlatformCallback callback){
+    public static void doCompUserList(CompUserListReq request, PlatformCallback callback){
         OkHttpUtils.getInstance().doPost(ApiConstant.USER_LIST_BY_COMPANY,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
@@ -1011,8 +1021,16 @@ public class PlatformClient {
      * @param request
      * @param callback
      */
-    public static void doUserJobList(CompJobListReq request, PlatformListCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.USER_JOB_LIST_BY_COMPANY,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    public static void doUserJobByComp(CompJobListReq request, PlatformListCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.USER_JOB_LIST_BY_COMPANY,obj2Json(request),callback);
+    }
+
+    public static void doUserJobByComp(PlatformListCallback callback){
+        doUserJobByComp(null,callback);
+    }
+
+    public static void doUserTempDown(Map<String,String> map,String path, PlatformDownloadCallback callback){
+        OkHttpUtils.getInstance().doDownloadFile(ApiConstant.USER_DOWNLOAD,map,path,callback);
     }
 
     /**
@@ -1029,7 +1047,7 @@ public class PlatformClient {
      * @param request
      * @param callback
      */
-    public static void doUserJobList(UserJobListReq request, PlatformListCallback callback){
+    public static void doUserJobByUser(UserJobListReq request, PlatformListCallback callback){
         OkHttpUtils.getInstance().doPost(ApiConstant.USER_JOB_LIST_BY_USER,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
@@ -1083,7 +1101,7 @@ public class PlatformClient {
      * @param request
      * @param callback
      */
-    public static void doUserList(UserMultiListReq request, PlatformCallback callback){
+    public static void doUserMultiList(UserMultiListReq request, PlatformCallback callback){
         OkHttpUtils.getInstance().doPost(ApiConstant.USER_LIST_BY_MULTI,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 

@@ -8,6 +8,9 @@ import org.json.JSONArray;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.attribute.FileTime;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -60,5 +63,13 @@ public class StringUtils {
     public static String list2Json(List<Object> list){
         JSONArray jsonArray = new JSONArray(list);
         return jsonArray.toString();
+    }
+
+    public static String getFileName(String path) {
+        int separatorIndex = path.lastIndexOf("/");
+        String fileName = String.valueOf(System.currentTimeMillis());
+        path = (separatorIndex < 0) ? path : path.substring(separatorIndex + 1,
+                path.length());
+        return path + fileName + ".xls";
     }
 }
