@@ -2,20 +2,20 @@ package com.dingmao.platformsdk.usermanagement;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Create by atu on 2020/8/20
  */
+@Setter
+@Getter
 public class UserMenuRsp {
     private List<ListBean> list;
 
-    public List<ListBean> getList() {
-        return list;
-    }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
-    }
-
+    @Setter
+    @Getter
     public static class ListBean {
         /**
          * menu_no : quis ea incididunt consectetur
@@ -36,81 +36,12 @@ public class UserMenuRsp {
         private String menu_css;
         private String ouer_url;
         private String menu_type;
-        private ObjectInfoBean object_info;
+        private List<ObjectInfoBean> object_info;
         private List<ChildrenListBean> children_list;
 
-        public String getMenu_no() {
-            return menu_no;
-        }
 
-        public void setMenu_no(String menu_no) {
-            this.menu_no = menu_no;
-        }
-
-        public String getMenu_name() {
-            return menu_name;
-        }
-
-        public void setMenu_name(String menu_name) {
-            this.menu_name = menu_name;
-        }
-
-        public String getIs_dir() {
-            return is_dir;
-        }
-
-        public void setIs_dir(String is_dir) {
-            this.is_dir = is_dir;
-        }
-
-        public String getOrder_no() {
-            return order_no;
-        }
-
-        public void setOrder_no(String order_no) {
-            this.order_no = order_no;
-        }
-
-        public String getMenu_css() {
-            return menu_css;
-        }
-
-        public void setMenu_css(String menu_css) {
-            this.menu_css = menu_css;
-        }
-
-        public String getOuer_url() {
-            return ouer_url;
-        }
-
-        public void setOuer_url(String ouer_url) {
-            this.ouer_url = ouer_url;
-        }
-
-        public String getMenu_type() {
-            return menu_type;
-        }
-
-        public void setMenu_type(String menu_type) {
-            this.menu_type = menu_type;
-        }
-
-        public ObjectInfoBean getObject_info() {
-            return object_info;
-        }
-
-        public void setObject_info(ObjectInfoBean object_info) {
-            this.object_info = object_info;
-        }
-
-        public List<ChildrenListBean> getChildren_list() {
-            return children_list;
-        }
-
-        public void setChildren_list(List<ChildrenListBean> children_list) {
-            this.children_list = children_list;
-        }
-
+        @Getter
+        @Setter
         public static class ObjectInfoBean {
             /**
              * object_id : Lorem aute labore
@@ -124,16 +55,63 @@ public class UserMenuRsp {
 
             private String object_id;
 
-            public String getObject_id() {
-                return object_id;
-            }
-
-            public void setObject_id(String object_id) {
-                this.object_id = object_id;
-            }
         }
 
+        @Getter
+        @Setter
         public static class ChildrenListBean {
+            /**
+             * menu_id : 399
+             * menu_no : homePendding
+             * menu_name : 待办信息
+             * is_dir : 0
+             * order_no : 1
+             * menu_css : fa-home
+             * outer_url : /
+             * menu_type : 1
+             * object_id : 528
+             * p_menu_no : WarehouseManagement
+             * route_url : homePendd
+             * object_info : {"object_id":"528","object_name":"待办信息","object_module":"","object_method":"","object_para":"","object_no":"homePendding","object_sort":"1"}
+             */
+
+            private String menu_id;
+            private String menu_no;
+            private String menu_name;
+            private String is_dir;
+            private String order_no;
+            private String menu_css;
+            private String outer_url;
+            private String menu_type;
+            private String object_id;
+            private String p_menu_no;
+            private String route_url;
+//            private ObjectInfoBean object_info;
+
+
+            @Getter
+            @Setter
+            public static class ObjectInfoBean {
+                /**
+                 * object_id : 528
+                 * object_name : 待办信息
+                 * object_module :
+                 * object_method :
+                 * object_para :
+                 * object_no : homePendding
+                 * object_sort : 1
+                 */
+
+                private String object_id;
+                private String object_name;
+                private String object_module;
+                private String object_method;
+                private String object_para;
+                private String object_no;
+                private String object_sort;
+
+
+            }
         }
     }
 }

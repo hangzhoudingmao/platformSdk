@@ -230,47 +230,7 @@ public class OkHttpUtils {
     void doDownloadFile(String url, Map<String, String> map, String path, PlatformDownloadCallback callback) {
         String newUrl = appendParams(ApiConstant.BASE_URL + url, map);
         Request request = new Request.Builder().url(newUrl).build();
-        mOkHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                mHandler.post(() -> {
-                    callback.onFailed(e.getMessage());
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                InputStream is = null;
-                byte[] b = new byte[2048];
-                int len;
-                FileOutputStream fos = null;
-                try {
-                    is = response.body().byteStream();
-                    File file = new File(path, StringUtils.getFileName(url));
-                    fos = new FileOutputStream(file);
-                    while ((len = is.read(b)) != -1) {
-                        fos.write(b, 0, len);
-                    }
-                    fos.flush();
-                    // 如果下载文件成功，第一个参数为文件的绝对路径
-                    mHandler.post(() -> {
-                        callback.onSuccess(file.getAbsolutePath());
-
-                    });
-                } catch (Exception e) {
-                    mHandler.post(() -> {
-                        callback.onFailed(e.getMessage());
-                    });
-                } finally {
-                    if (is != null) {
-                        is.close();
-                    }
-                    if (fos != null) {
-                        fos.close();
-                    }
-                }
-            }
-        });
+        mOkHttpClient.newCall(request).enqueue(callback);
     }
 
     /**

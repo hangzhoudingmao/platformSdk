@@ -62,23 +62,23 @@ public abstract class PlatformListCallback<T> implements Callback {
                     ParameterizedType type = (ParameterizedType) clz.getGenericSuperclass();
                     //获取泛型参数的实际类型
                     Type[] types = type.getActualTypeArguments();
-                    Log.e("getSuperclass======", types[0] + "");
                     Class<T> cls = (Class<T>) types[0];
-
-                    JsonArray asJsonArray = new JsonParser().parse(json).getAsJsonArray();
-                    Log.e("asJsonArray==========", asJsonArray.toString());
-                    Iterator<JsonElement> iterator = asJsonArray.iterator();
+                    JsonElement parse = new JsonParser().parse(json);
                     ArrayList<T> list = new ArrayList();
-                    while (iterator.hasNext()) {
-                        JsonElement next = iterator.next();
-                        Log.e("JsonElement==========", next.toString());
-                        T t = gson.fromJson(next, cls);
-                        list.add(t);
+                    if (parse.isJsonArray()){
+                        JsonArray asJsonArray = parse.getAsJsonArray();
+                        Iterator<JsonElement> iterator = asJsonArray.iterator();
+                        while (iterator.hasNext()) {
+                            JsonElement next = iterator.next();
+                            Log.e("JsonElement==========", next.toString());
+                            T t = gson.fromJson(next, cls);
+                            list.add(t);
+                        }
+                        mHandler.post(() -> onSuccess(list));
                     }
-                    Log.e("t==========", list.toString());
-                    mHandler.post(() -> {
-                        onSuccess(list);
-                    });
+                    else {
+                        mHandler.post(() -> onSuccess(list));
+                    }
 
                 } else {
                     mHandler.post(() -> {

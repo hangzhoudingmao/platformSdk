@@ -65,11 +65,11 @@ public class StringUtils {
         return jsonArray.toString();
     }
 
-    public static String getFileName(String path) {
-        int separatorIndex = path.lastIndexOf("/");
+    public static String getFileName() {
+//        int separatorIndex = path.lastIndexOf("/");
         String fileName = String.valueOf(System.currentTimeMillis());
-        path = (separatorIndex < 0) ? path : path.substring(separatorIndex + 1,
-                path.length());
-        return path + fileName + ".xls";
+//        path = (separatorIndex < 0) ? path : path.substring(separatorIndex + 1,
+//                path.length());
+        return fileName + ".xls";
     }
 }

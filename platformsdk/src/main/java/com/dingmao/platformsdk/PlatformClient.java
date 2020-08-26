@@ -152,6 +152,8 @@ import com.dingmao.platformsdk.resourcesmanagement.TempAuthAssignReq;
 import com.dingmao.platformsdk.resourcesmanagement.TempAuthDelReq;
 import com.dingmao.platformsdk.resourcesmanagement.TempAuthListReq;
 import com.dingmao.platformsdk.screendata.ScreenWriteDataReq;
+import com.dingmao.platformsdk.systemmanagement.BasicConfigReq;
+import com.dingmao.platformsdk.systemmanagement.CheckUpdateReq;
 import com.dingmao.platformsdk.systemmanagement.SysAuthReq;
 import com.dingmao.platformsdk.systemmanagement.SysDelVerReq;
 import com.dingmao.platformsdk.systemmanagement.SysLogReq;
@@ -1029,8 +1031,18 @@ public class PlatformClient {
         doUserJobByComp(null,callback);
     }
 
+    /**
+     * 导入用户模板下载
+     * @param map
+     * @param path
+     * @param callback
+     */
     public static void doUserTempDown(Map<String,String> map,String path, PlatformDownloadCallback callback){
         OkHttpUtils.getInstance().doDownloadFile(ApiConstant.USER_DOWNLOAD,map,path,callback);
+    }
+
+    public static void doImptByExcel(Map<String,String> map,File file,String fileKey,PlatformCallback callback){
+        OkHttpUtils.getInstance().doPostFile(ApiConstant.USER_IMPORT_EXCEL,map,file,fileKey,callback);
     }
 
     /**
@@ -1047,7 +1059,7 @@ public class PlatformClient {
      * @param request
      * @param callback
      */
-    public static void doUserJobByUser(UserJobListReq request, PlatformListCallback callback){
+    public static void doUserJobByUser(UserJobListReq request, PlatformCallback callback){
         OkHttpUtils.getInstance().doPost(ApiConstant.USER_JOB_LIST_BY_USER,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
@@ -1074,16 +1086,16 @@ public class PlatformClient {
      * @param request
      * @param callback
      */
-    public static void doUserPwd(ResetPwdReq request, PlatformStringCallback callback){
+    public static void doResetPwd(ResetPwdReq request, PlatformStringCallback callback){
         OkHttpUtils.getInstance().doPost(ApiConstant.USER_RESET_PWD_BY_PWD,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
-     * 重置用户密码-旧密码
+     * 重置密码-验证码
      * @param request
      * @param callback
      */
-    public static void doUserPwd(ResetCodeReq request, PlatformStringCallback callback){
+    public static void doResetPwdByCode(ResetCodeReq request, PlatformStringCallback callback){
         OkHttpUtils.getInstance().doPost(ApiConstant.USER_RESET_PWD_BY_CODE,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
@@ -1220,6 +1232,29 @@ public class PlatformClient {
         OkHttpUtils.getInstance().doPost(ApiConstant.SYSTEM_DELETE_VERSION,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
+    /**
+     * 检查版本是否需要更新
+     * @param request
+     * @param callback
+     */
+    public static void doCheckUpdate(CheckUpdateReq request, PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.SYSTEM_CHECK_VERSION,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    }
+
+    /**
+     * 下载安装包
+     * @param map
+     * @param path
+     * @param callback
+     */
+    public static void doDownloadApk(Map<String, String> map, String path, PlatformDownloadCallback callback){
+        OkHttpUtils.getInstance().doDownloadFile(ApiConstant.SYSTEM_DOWNLOAD_LAST_VERSION,map,path,callback);
+    }
+
+    public static void doBasicConfig(BasicConfigReq request, PlatformCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.SYSTEM_GET_SITE_CONFIG_DETAIL,obj2Json(request),callback);
+    }
+
     /*******************系统管理end********************************************************************************************/
 
     public static <T> void doPost(String url,Object o,PlatformCallback<T> callback){
@@ -1279,7 +1314,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doAuthAdd(AuthAddReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.RESOURCE_UPDATE_OBJECT,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+        OkHttpUtils.getInstance().doPost(ApiConstant.RESOURCE_CREATE_OBJECT,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -1288,7 +1323,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doAuthUpdate(AuthUpdateReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.RESOURCE_CREATE_OBJECT,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+        OkHttpUtils.getInstance().doPost(ApiConstant.RESOURCE_UPDATE_OBJECT,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
     /**
@@ -1307,7 +1342,11 @@ public class PlatformClient {
      * @param callback
      */
     public static void doMenuList(MenuListReq request, PlatformListCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.RESOURCE_MENU_LIST,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+        OkHttpUtils.getInstance().doPost(ApiConstant.RESOURCE_MENU_LIST,obj2Json(request),callback);
+    }
+
+    public static void doMenuList(PlatformListCallback callback){
+        doMenuList(null,callback);
     }
 
     /**
@@ -1338,7 +1377,7 @@ public class PlatformClient {
     }
 
     /**
-     * 获取菜单树
+     * 获取菜单目录树
      * @param request
      * @param callback
      */
@@ -1414,7 +1453,7 @@ public class PlatformClient {
      * @param request
      * @param callback
      */
-    public static void doTempAuthList(TempAuthListReq request, PlatformListCallback callback){
+    public static void doTempAuthList(TempAuthListReq request, PlatformCallback callback){
         OkHttpUtils.getInstance().doPost(ApiConstant.RESOURCE_TEMPLATE_TPL_OBJECTS,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 

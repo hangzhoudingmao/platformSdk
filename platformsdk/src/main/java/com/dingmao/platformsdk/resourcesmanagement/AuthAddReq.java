@@ -13,9 +13,9 @@ import lombok.Setter;
 public class AuthAddReq {
     @NotNull(fileName = "权限项名称")
     private String object_name;//
-    @NotNull(fileName = "权限项路径")
+//    @NotNull(fileName = "权限项路径")
     private String object_module;//权限项路径
-    @NotNull(fileName = "权限项方法")
+//    @NotNull(fileName = "权限项方法")
     private String object_method;//权限项方法
     private String object_para;//权限项参数
     @NotNull(fileName = "权限项编码")

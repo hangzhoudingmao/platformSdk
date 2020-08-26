@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import freemarker.core.Environment;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
@@ -20,13 +21,14 @@ import freemarker.template.TemplateNotFoundException;
 public class Generator {
     private static final String BEAN_KEY = "bean";
     private Template myJavaFileFtl;
+    private String path;
 
-    public Generator(String temp) throws IOException {
-        Configuration config = getConfiguration(temp);
-        myJavaFileFtl = config.getTemplate(temp);
+    public Generator(String path) {
+        this.path = path;
     }
 
-    public Generator() {}
+    public Generator() {
+    }
 
     private Configuration getConfiguration(String template) throws IOException {
         Configuration config = new Configuration(Configuration.VERSION_2_3_23);
@@ -64,6 +66,9 @@ public class Generator {
 
         Configuration config = new Configuration();
         config.setObjectWrapper(new DefaultObjectWrapper());
+        //E:\dingmao\platformSdk\FreeMarkerLib\src\main\resources
+        //new File("E:/dingmao/platformSdk/FreeMarkerLib/src/main/resources/temp.ftl")
+//        config.setDirectoryForTemplateLoading(new File(path));
         Template template = config.getTemplate("src/main/resources/temp.ftl", "UTF-8");
         Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/main/resources/User.java"), "UTF-8"));
         template.process(beanMap, out);

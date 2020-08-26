@@ -18,69 +18,78 @@ import com.dingmao.platformsdk.PlatformSDK;
 import com.dingmao.platformsdk.callback.PlatformDownloadCallback;
 import com.dingmao.platformsdk.callback.PlatformListCallback;
 import com.dingmao.platformsdk.callback.PlatformStringCallback;
-import com.dingmao.platformsdk.internal.util.StringUtils;
 import com.dingmao.platformsdk.login.LoginByPwdReq;
 import com.dingmao.platformsdk.login.LoginResponse;
-import com.dingmao.platformsdk.organization.AccountAddReq;
-import com.dingmao.platformsdk.organization.AccountListReq;
-import com.dingmao.platformsdk.organization.AccountListRsp;
-import com.dingmao.platformsdk.organization.BelongOrgListReq;
-import com.dingmao.platformsdk.organization.BelongOrgListRsp;
-import com.dingmao.platformsdk.organization.DeptDelReq;
-import com.dingmao.platformsdk.organization.DeptMultiListReq;
-import com.dingmao.platformsdk.organization.DeptMultiListRsp;
-import com.dingmao.platformsdk.organization.DeptSubListReq;
-import com.dingmao.platformsdk.organization.DeptSubListRsp;
-import com.dingmao.platformsdk.organization.DeptUpdateReq;
-import com.dingmao.platformsdk.organization.JobDelReq;
-import com.dingmao.platformsdk.organization.JobPowerListReq;
-import com.dingmao.platformsdk.organization.JobPowerListRsp;
-import com.dingmao.platformsdk.organization.JobUpdateReq;
-import com.dingmao.platformsdk.organization.ObsListReq;
-import com.dingmao.platformsdk.organization.ObsListRsp;
-import com.dingmao.platformsdk.organization.ObsPowerListReq;
-import com.dingmao.platformsdk.organization.ObsPowerListRsp;
-import com.dingmao.platformsdk.organization.ObsRelaDelReq;
-import com.dingmao.platformsdk.organization.ObsRelaListReq;
-import com.dingmao.platformsdk.organization.ObsRelaListRsp;
-import com.dingmao.platformsdk.organization.ObsUserDelReq;
-import com.dingmao.platformsdk.organization.OrgCheckCompReq;
-import com.dingmao.platformsdk.organization.OrgCheckCompRsp;
-import com.dingmao.platformsdk.organization.OrgCompDeptMultiReq;
-import com.dingmao.platformsdk.organization.OrgCompDomainReq;
-import com.dingmao.platformsdk.organization.OrgCompListReq;
-import com.dingmao.platformsdk.organization.OrgCompListRsp;
-import com.dingmao.platformsdk.organization.OrgCompUpdateReq;
-import com.dingmao.platformsdk.organization.OrgCompUpdateRsp;
-import com.dingmao.platformsdk.organization.OrgDelReq;
-import com.dingmao.platformsdk.organization.OrgJobAddReq;
-import com.dingmao.platformsdk.organization.OrgJobListReq;
-import com.dingmao.platformsdk.organization.OrgJobListRsp;
-import com.dingmao.platformsdk.organization.OrgMultiListReq;
-import com.dingmao.platformsdk.organization.OrgMultiListRsp;
-import com.dingmao.platformsdk.organization.OrgObsAddDeptReq;
-import com.dingmao.platformsdk.organization.OrgObsAddJobReq;
-import com.dingmao.platformsdk.organization.OrgObsAddOrgReq;
-import com.dingmao.platformsdk.organization.OrgObsAddReq;
-import com.dingmao.platformsdk.organization.OrgObsAddRsp;
-import com.dingmao.platformsdk.organization.OrgSubListReq;
-import com.dingmao.platformsdk.organization.OrgSubListRsp;
-import com.dingmao.platformsdk.organization.OrgTreeReq;
-import com.dingmao.platformsdk.organization.OrgTreeRsp;
-import com.dingmao.platformsdk.organization.OrgUpdateReq;
-import com.dingmao.platformsdk.organization.SubDeptListReq;
-import com.dingmao.platformsdk.organization.SubDeptListRsp;
+import com.dingmao.platformsdk.resourcesmanagement.AuthAddReq;
+import com.dingmao.platformsdk.resourcesmanagement.AuthAddRsp;
+import com.dingmao.platformsdk.resourcesmanagement.AuthDelReq;
+import com.dingmao.platformsdk.resourcesmanagement.AuthListReq;
+import com.dingmao.platformsdk.resourcesmanagement.AuthListRsp;
+import com.dingmao.platformsdk.resourcesmanagement.AuthTempAddReq;
+import com.dingmao.platformsdk.resourcesmanagement.AuthTempDelReq;
+import com.dingmao.platformsdk.resourcesmanagement.AuthTempListReq;
+import com.dingmao.platformsdk.resourcesmanagement.AuthTempListRsp;
+import com.dingmao.platformsdk.resourcesmanagement.AuthTempUpdateReq;
+import com.dingmao.platformsdk.resourcesmanagement.AuthUpdateReq;
+import com.dingmao.platformsdk.resourcesmanagement.MenuAddReq;
+import com.dingmao.platformsdk.resourcesmanagement.MenuAddRsp;
+import com.dingmao.platformsdk.resourcesmanagement.MenuCateAddReq;
+import com.dingmao.platformsdk.resourcesmanagement.MenuCateAddRsp;
+import com.dingmao.platformsdk.resourcesmanagement.MenuCateDelReq;
+import com.dingmao.platformsdk.resourcesmanagement.MenuCateUpdateReq;
+import com.dingmao.platformsdk.resourcesmanagement.MenuDelReq;
+import com.dingmao.platformsdk.resourcesmanagement.MenuListReq;
+import com.dingmao.platformsdk.resourcesmanagement.MenuListRsp;
+import com.dingmao.platformsdk.resourcesmanagement.MenuTreeReq;
+import com.dingmao.platformsdk.resourcesmanagement.MenuTreeRsp;
+import com.dingmao.platformsdk.resourcesmanagement.MenuUpdateReq;
+import com.dingmao.platformsdk.resourcesmanagement.ResSortAddReq;
+import com.dingmao.platformsdk.resourcesmanagement.ResSortAddRsp;
+import com.dingmao.platformsdk.resourcesmanagement.ResSortDelReq;
+import com.dingmao.platformsdk.resourcesmanagement.ResSortTreeReq;
+import com.dingmao.platformsdk.resourcesmanagement.ResSortTreeRsp;
+import com.dingmao.platformsdk.resourcesmanagement.ResSortUpdateReq;
+import com.dingmao.platformsdk.resourcesmanagement.TempAuthAssignReq;
+import com.dingmao.platformsdk.resourcesmanagement.TempAuthDelReq;
+import com.dingmao.platformsdk.resourcesmanagement.TempAuthListReq;
+import com.dingmao.platformsdk.resourcesmanagement.TempAuthListRsp;
+import com.dingmao.platformsdk.systemmanagement.BasicConfigReq;
+import com.dingmao.platformsdk.systemmanagement.BasicConfigRsp;
+import com.dingmao.platformsdk.systemmanagement.CheckUpdateReq;
+import com.dingmao.platformsdk.systemmanagement.CheckUpdateRsp;
+import com.dingmao.platformsdk.systemmanagement.SysAuthRsp;
+import com.dingmao.platformsdk.systemmanagement.SysDelVerReq;
+import com.dingmao.platformsdk.systemmanagement.SysInfoRsp;
+import com.dingmao.platformsdk.systemmanagement.SysLogReq;
+import com.dingmao.platformsdk.systemmanagement.SysLogRsp;
+import com.dingmao.platformsdk.systemmanagement.SysPubVerReq;
+import com.dingmao.platformsdk.systemmanagement.SysUpdateReq;
+import com.dingmao.platformsdk.systemmanagement.SysUpdateVerReq;
+import com.dingmao.platformsdk.systemmanagement.SysVersionReq;
+import com.dingmao.platformsdk.systemmanagement.SysVersionRsp;
+import com.dingmao.platformsdk.usermanagement.AssignAuthReq;
 import com.dingmao.platformsdk.usermanagement.CompJobListReq;
-import com.dingmao.platformsdk.usermanagement.CompJobListRsp;
-import com.dingmao.platformsdk.usermanagement.CompUserListReq;
-import com.dingmao.platformsdk.usermanagement.CompUserListRsp;
+import com.dingmao.platformsdk.usermanagement.JobAddReq;
+import com.dingmao.platformsdk.usermanagement.ResetCodeReq;
+import com.dingmao.platformsdk.usermanagement.ResetPwdReq;
 import com.dingmao.platformsdk.usermanagement.UserAddReq;
 import com.dingmao.platformsdk.usermanagement.UserAddRsp;
-import com.dingmao.platformsdk.usermanagement.UserDelReq;
-import com.dingmao.platformsdk.usermanagement.UserJobDelReq;
+import com.dingmao.platformsdk.usermanagement.UserAuthReq;
+import com.dingmao.platformsdk.usermanagement.UserAuthRsp;
+import com.dingmao.platformsdk.usermanagement.UserDetailReq;
+import com.dingmao.platformsdk.usermanagement.UserDetailRsp;
+import com.dingmao.platformsdk.usermanagement.UserImprtReq;
+import com.dingmao.platformsdk.usermanagement.UserJobListReq;
 import com.dingmao.platformsdk.usermanagement.UserJobListRsp;
+import com.dingmao.platformsdk.usermanagement.UserListReq;
+import com.dingmao.platformsdk.usermanagement.UserListRsp;
+import com.dingmao.platformsdk.usermanagement.UserMenuReq;
+import com.dingmao.platformsdk.usermanagement.UserMenuRsp;
+import com.dingmao.platformsdk.usermanagement.UserMultiListReq;
+import com.dingmao.platformsdk.usermanagement.UserMultiListRsp;
+import com.dingmao.platformsdk.usermanagement.UserStateReq;
+import com.dingmao.platformsdk.usermanagement.UserUpdateReq;
 import com.google.gson.Gson;
-import com.hu.freemarkerlibs.Generator;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -112,9 +121,7 @@ public class MainActivity extends AppCompatActivity {
     public void login(View view) {
         PlatformClient.doLogin(new LoginByPwdReq("wareCsy", "hz123456"), new PlatformCallback<LoginResponse>() {
             @Override
-            public void onSuccess(LoginResponse o) {
-
-            }
+            public void onSuccess(LoginResponse o) { }
 
             @Override
             public void onFailed(String msg) {
@@ -123,9 +130,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTokenInvalid(String msg) {
-
-            }
+            public void onTokenInvalid(String msg) { }
         });
     }
 
@@ -135,24 +140,16 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Observer<Boolean>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
+                    public void onSubscribe(Disposable d) { }
 
                     @Override
-                    public void onNext(Boolean aBoolean) {
-
-                    }
+                    public void onNext(Boolean aBoolean) { }
 
                     @Override
-                    public void onError(Throwable e) {
-
-                    }
+                    public void onError(Throwable e) { }
 
                     @Override
-                    public void onComplete() {
-
-                    }
+                    public void onComplete() { }
                 });
     }
 
@@ -181,7 +178,912 @@ public class MainActivity extends AppCompatActivity {
     //province_no=110000
     //city_no=110100
     //area_no=110101
+    //user_id =505
+    //system_id=72
+    //"system_no":"warehouse"
+    //"sys_ver_id":"235"
+    //"object_no":"organization",
+    //"object_id":"814"
     public void create(View view) {
+        doAuthTempAdd();
+    }
+
+    private void doTempAuthList(){
+        TempAuthAssignReq request = new TempAuthAssignReq();
+        request.setAuth_template_id("66");
+        request.setObject_ids("682");
+        PlatformClient.doTempAuthList(request, new PlatformListCallback<TempAuthAssignReq>() {
+            @Override
+            public void onSuccess(List<TempAuthAssignReq> msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+
+
+        });
+    }
+
+    private void doTempAuthDel(){
+        TempAuthDelReq request = new TempAuthDelReq();
+        request.setObject_id("682");
+        request.setAuth_template_id("66");
+        PlatformClient.doTempAuthDel(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+
+    private void doAuthTempAdd(){
+        TempAuthListReq request = new TempAuthListReq();
+        request.setAuth_template_id("66");
+        PlatformClient.doTempAuthList(request, new PlatformCallback<TempAuthListRsp>() {
+            @Override
+            public void onSuccess(TempAuthListRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onListSuccess(List<TempAuthListRsp> list) {
+                Toast.makeText(MainActivity.this,list + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+
+
+        });
+    }
+
+    private void doAuthTempList(){
+        AuthTempListReq request = new AuthTempListReq();
+        request.setIs_page("1");
+        PlatformClient.doAuthTempList(request, new PlatformCallback<AuthTempListRsp>() {
+            @Override
+            public void onSuccess(AuthTempListRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doMenuCateDel(){
+        MenuCateDelReq request = new MenuCateDelReq();
+        request.setMenu_id("584");
+        PlatformClient.doMenuCateDel(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+
+    private void doMenuCateUpdate(){
+        MenuCateUpdateReq request = new MenuCateUpdateReq();
+        request.setMenu_id("584");
+        request.setMenu_name("测试");
+        PlatformClient.doMenuCateUpdate(request, new PlatformCallback<MenuCateAddRsp>() {
+            @Override
+            public void onSuccess(MenuCateAddRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doMenuCateAdd(){
+        MenuCateAddReq request = new MenuCateAddReq();
+        request.setMenu_name("测试123");
+        request.setMenu_no("test");
+        PlatformClient.doMenuCateAdd(request, new PlatformCallback<MenuCateAddRsp>() {
+            @Override
+            public void onSuccess(MenuCateAddRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doMenuTree(){
+        MenuTreeReq request = new MenuTreeReq();
+        request.setIs_tab("2");
+        PlatformClient.doMenuTree(request,new PlatformListCallback<MenuTreeRsp>() {
+            @Override
+            public void onSuccess(List<MenuTreeRsp> msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doMenuDel(){
+        MenuDelReq request = new MenuDelReq();
+        request.setMenu_id("583");
+        PlatformClient.doMenuDel(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+
+
+
+    private void doMenuUpdate(){
+        MenuUpdateReq request = new MenuUpdateReq();
+        request.setObject_id("741");
+        request.setMenu_name("测试123");
+        request.setMenu_id("583");
+        request.setP_menu_no("wareManagement");
+        request.setMenu_type("1");
+        request.setRoute_url("/");
+        PlatformClient.doMenuUpdate(request, new PlatformCallback<AuthAddRsp>() {
+            @Override
+            public void onSuccess(AuthAddRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doMenuAdd(){
+        MenuAddReq request = new MenuAddReq();
+        request.setObject_id("741");
+        request.setMenu_no("test");
+        request.setMenu_name("测试");
+        request.setP_menu_no("wareManagement");
+        request.setMenu_type("1");
+        request.setRoute_url("/");
+        PlatformClient.doMenuAdd(request, new PlatformCallback<MenuAddRsp>() {
+            @Override
+            public void onSuccess(MenuAddRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doMenuList(){
+        MenuListReq request = new MenuListReq();
+        PlatformClient.doMenuList(new PlatformListCallback<MenuListRsp>() {
+            @Override
+            public void onSuccess(List<MenuListRsp> msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doAuthDel(){
+        AuthDelReq request = new AuthDelReq();
+        request.setObject_id("815");
+        PlatformClient.doAuthDel(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+
+    private void doAuthUpdate(){
+        AuthUpdateReq request = new AuthUpdateReq();
+        request.setObject_name("测试123");
+        request.setObject_id("815");
+        request.setP_object_no("organization");
+        request.setObject_sort("1");
+        request.setIs_menu("1");
+        request.setIs_priv("1");
+        request.setIs_flow("0");
+        request.setIs_samp("0");
+        PlatformClient.doAuthUpdate(request, new PlatformCallback<AuthAddRsp>() {
+            @Override
+            public void onSuccess(AuthAddRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doAuthAdd(){
+        AuthAddReq request = new AuthAddReq();
+        request.setObject_name("测试");
+        request.setObject_no("test");
+        request.setObject_sort("1");
+        request.setP_object_no("organization");
+        request.setIs_menu("1");
+        request.setIs_priv("1");
+        request.setIs_flow("0");
+        request.setIs_samp("0");
+        PlatformClient.doAuthAdd(request, new PlatformCallback<AuthAddRsp>() {
+            @Override
+            public void onSuccess(AuthAddRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doAuthList(){
+        AuthListReq request = new AuthListReq();
+        request.setObject_no("organization");
+        request.setIs_page("1");
+        PlatformClient.doAuthList(request, new PlatformCallback<AuthListRsp>() {
+            @Override
+            public void onSuccess(AuthListRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doResSortDel(){
+        ResSortDelReq request = new ResSortDelReq();
+        request.setObject_id("814");
+        PlatformClient.doResSortDel(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+
+    private void doResSortUpdate(){
+        ResSortUpdateReq request = new ResSortUpdateReq();
+        request.setObject_id("814");
+        request.setObject_name("测试123");
+        PlatformClient.doResSortUpdate(request, new PlatformCallback<ResSortAddRsp>() {
+            @Override
+            public void onSuccess(ResSortAddRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doResSortAdd(){
+        ResSortAddReq request = new ResSortAddReq();
+        request.setObject_no("test");
+        request.setObject_name("测试");
+        PlatformClient.doResSortAdd(request, new PlatformCallback<ResSortAddRsp>() {
+            @Override
+            public void onSuccess(ResSortAddRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doResTree(){
+        ResSortTreeReq request = new ResSortTreeReq();
+        request.setType("menu");
+        PlatformClient.doResTree(request, new PlatformListCallback<ResSortTreeRsp>() {
+            @Override
+            public void onSuccess(List<ResSortTreeRsp> msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doBasicConfig(){
+        BasicConfigReq request = new BasicConfigReq();
+        request.setSystem_no("warehouse");
+        PlatformClient.doBasicConfig(request, new PlatformCallback<BasicConfigRsp>() {
+            @Override
+            public void onSuccess(BasicConfigRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void downApk(){
+        Map<String,String> map = new HashMap<>();
+        map.put("system_no","warehouse");
+        map.put("system_type","app");
+        map.put("ver","1.2.3");
+        String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        PlatformClient.doDownloadApk(map,absolutePath,new PlatformDownloadCallback() {
+            @Override
+            public void onSuccess(String o) {
+                Log.e("======",o);
+                Toast.makeText(MainActivity.this,o + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDownProgress(int progress) {
+                Log.e("======",progress + "");
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+
+    private void doCheckUpdate(){
+        CheckUpdateReq request = new CheckUpdateReq();
+        request.setVer("1.2.0");
+        PlatformClient.doCheckUpdate(request, new PlatformCallback<CheckUpdateRsp>() {
+            @Override
+            public void onSuccess(CheckUpdateRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doSysDelVer(){
+        SysDelVerReq request = new SysDelVerReq();
+        request.setSys_ver_id("235");
+        PlatformClient.doSysDelVer(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void doSysUpdateVer(){
+        SysUpdateVerReq request = new SysUpdateVerReq();
+        request.setSystem_type("app");
+        request.setSys_ver_id("235");
+        request.setVer_content("测试235");
+        PlatformClient.doSysUpdateVer(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void doSysPubVer(){
+        SysPubVerReq request = new SysPubVerReq();
+        request.setSystem_type("app");
+        request.setVer("1.2.3");
+        request.setVer_content("测试");
+        PlatformClient.doSysPubVer(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void doSysVersion(){
+        SysVersionReq request = new SysVersionReq();
+        request.setIs_page("1");
+        request.setSystem_type("app");
+        request.setVer("1.2.3");
+        PlatformClient.doSysVersion(request, new PlatformCallback<SysVersionRsp>() {
+            @Override
+            public void onSuccess(SysVersionRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doSysLog(){
+        SysLogReq request = new SysLogReq();
+        request.setIs_page("1");
+        PlatformClient.doSysLog(request, new PlatformCallback<SysLogRsp>() {
+            @Override
+            public void onSuccess(SysLogRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doSysAuth(){
+        Map<String,String> map = new HashMap<>();
+        map.put("id","505");
+        map.put("auth_sys_type","1");
+        map.put("is_page","1");
+        PlatformClient.doSysAuth(map, new PlatformCallback<SysAuthRsp>() {
+            @Override
+            public void onSuccess(SysAuthRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doSysUpdate(){
+        SysUpdateReq request = new SysUpdateReq();
+        request.setSystem_id("72");
+        PlatformClient.doSysUpdate(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void doSysInfo(){
+        PlatformClient.doSysInfo( new PlatformCallback<SysInfoRsp>() {
+            @Override
+            public void onSuccess(SysInfoRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doUserUpdate(){
+        UserUpdateReq request = new UserUpdateReq();
+        request.setUser_id("505");
+        request.setUser_name("atu");
+        PlatformClient.doUserUpdate(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void doUserDetail(){
+        UserDetailReq request = new UserDetailReq();
+        request.setUser_id("505");
+        PlatformClient.doUserDetail(request, new PlatformCallback<UserDetailRsp>() {
+            @Override
+            public void onSuccess(UserDetailRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doAssignAuth(){
+        AssignAuthReq request = new AssignAuthReq();
+        request.setUser_id("505");
+        request.setObject_ids("1");
+        PlatformClient.doAssignAuth(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void doUserAuth(){
+        UserAuthReq request = new UserAuthReq();
+        request.setUser_id("505");
+        PlatformClient.doUserAuth(request, new PlatformCallback<UserAuthRsp>() {
+            @Override
+            public void onSuccess(UserAuthRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doUserMenu(){
+        UserMenuReq request = new UserMenuReq();
+        PlatformClient.doUserMenu(request, new PlatformCallback<UserMenuRsp>() {
+            @Override
+            public void onSuccess(UserMenuRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doUserMultiList(){
+        UserMultiListReq request = new UserMultiListReq();
+        request.setIs_page("1");
+        request.setType("3");
+        request.setIds("216");
+        PlatformClient.doUserMultiList(request, new PlatformCallback<UserMultiListRsp>() {
+            @Override
+            public void onSuccess(UserMultiListRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doUserList(){
+        UserListReq request = new UserListReq();
+        request.setIs_page("1");
+        request.setPhone("17681840403");
+        PlatformClient.doUserList(request, new PlatformCallback<UserListRsp>() {
+            @Override
+            public void onSuccess(UserListRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doUserPwd(){
+        ResetCodeReq request = new ResetCodeReq();
+        request.setUser_id("504");
+        request.setNew_password("123456");
+        PlatformClient.doResetPwdByCode(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void doUserState(){
+        UserStateReq request = new UserStateReq();
+        request.setUser_id("504");
+        request.setType("1");
+        PlatformClient.doUserState(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void doJobAdd(){
+        JobAddReq request = new JobAddReq();
+        request.setUser_id("504");
+        request.setJob_id("0");
+        PlatformClient.doJobAdd(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void doUserJobByUser(){
+        UserJobListReq request = new UserJobListReq();
+        request.setUser_id("504");
+        PlatformClient.doUserJobByUser(request, new PlatformCallback<UserJobListRsp>() {
+            @Override
+            public void onSuccess(UserJobListRsp t) {
+                Toast.makeText(MainActivity.this,t + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    /**
+     * 批量导入用户（通过json）
+     */
+    private void doUserImprt(){
+        UserImprtReq request = new UserImprtReq();
+        request.setPhone("17681840403");
+        request.setUser_name("kxl");
+        List<UserImprtReq> list = new ArrayList<>();
+        list.add(request);
+        PlatformClient.doUserImprt(list, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void doUserTempDown(){
         CompJobListReq request = new CompJobListReq();
 //        request.setUser_id("504");
         Map<String,String> map = new HashMap<>();
@@ -195,6 +1097,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
+            public void onDownProgress(int progress) {
+
+            }
+
+            @Override
             public void onFailed(String msg) {
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
@@ -205,6 +1112,57 @@ public class MainActivity extends AppCompatActivity {
             }*/
         });
     }
+
+    /**
+     * 批量导入账户(通过excel)
+     */
+    private void doImprt() throws IOException {
+        String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        File file = new File(absolutePath + "/a.xls");
+        Map<String,String> map = new HashMap<>();
+        map.put("comp_id","0");
+        PlatformClient.doImptByExcel(map,file,"excels", new PlatformCallback<Object>() {
+            @Override
+            public void onSuccess(Object o) {
+
+            }
+
+            @Override
+            public void onFailed(String msg) {
+
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void addUser(){
+        UserAddReq request = new UserAddReq();
+        request.setPhone("17681840403");
+        request.setUser_name("atu");
+        PlatformClient.doUserAdd(request, new PlatformCallback<UserAddRsp>() {
+            @Override
+            public void onSuccess(UserAddRsp o) {
+
+            }
+
+            @Override
+            public void onFailed(String msg) {
+
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+
+
 
     public void freemarker(View view) {
         String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();

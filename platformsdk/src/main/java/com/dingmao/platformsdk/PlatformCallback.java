@@ -42,6 +42,7 @@ public abstract class PlatformCallback<T> implements Callback {
 
     //在主线程回调
     public abstract void onSuccess(T t);
+    public void onListSuccess(List<T> list){}
     public void onSuccess(String msg){};
 
     public abstract void onFailed(String msg);
@@ -63,10 +64,24 @@ public abstract class PlatformCallback<T> implements Callback {
                     //获取泛型参数的实际类型
                     Type[] types = type.getActualTypeArguments();
                     Class<T> cls = (Class<T>) types[0];
-                    T t = gson.fromJson(json, cls);
-                    mHandler.post(() -> {
-                        onSuccess(t);
-                    });
+                    JsonElement parse = new JsonParser().parse(json);
+                    if (parse.isJsonObject()){
+                        T t = gson.fromJson(json, cls);
+                        mHandler.post(() -> onSuccess(t));
+                    }
+                    else if (parse.isJsonArray()){
+                        ArrayList<T> list = new ArrayList();
+                        JsonArray asJsonArray = parse.getAsJsonArray();
+                        Iterator<JsonElement> iterator = asJsonArray.iterator();
+                        while (iterator.hasNext()) {
+                            JsonElement next = iterator.next();
+                            Log.e("JsonElement==========", next.toString());
+                            T t = gson.fromJson(next, cls);
+                            list.add(t);
+                        }
+                        mHandler.post(() -> onListSuccess(list));
+                    }
+
                 } else {
                     mHandler.post(() -> {
                         try {

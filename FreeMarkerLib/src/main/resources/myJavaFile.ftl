@@ -33,4 +33,14 @@ public class ${bean.clazzName} {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+	<#list params as param>
+    	public void set${param.fieldName?cap_first}(${param.fieldType} ${param.fieldName}){
+            this.${param.fieldName} = ${param.fieldName};
+        }
+
+        public ${param.fieldType} get${param.fieldName?cap_first}(){
+            return this.${param.fieldName};
+        }
+
+    </#list>
 }

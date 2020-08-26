@@ -214,7 +214,7 @@ public class HttpUtils {
     /**
      * 异步下载文件
      */
-    private void _downloadFileAsync(final String url, final String destFileDir,
+    public void _downloadFileAsync(final String url, final String destFileDir,
                                     final ResultCallback callback) {
         final Request request = new Request.Builder().url(url).build();
         final Call call = okHttpClient.newCall(request);

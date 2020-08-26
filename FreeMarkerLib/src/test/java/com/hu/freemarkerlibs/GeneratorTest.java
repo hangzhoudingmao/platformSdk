@@ -11,5 +11,6 @@ public class GeneratorTest {
 
 //        daoGenerator.generate(new File("checkTest"), "com.example.abc","user",11233,"man","Jeck");
         daoGenerator.create();
+
     }
 }
