@@ -12,14 +12,77 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.dingmao.platformsdk.ApiConstant;
 import com.dingmao.platformsdk.PlatformCallback;
 import com.dingmao.platformsdk.PlatformClient;
 import com.dingmao.platformsdk.PlatformSDK;
 import com.dingmao.platformsdk.callback.PlatformDownloadCallback;
 import com.dingmao.platformsdk.callback.PlatformListCallback;
 import com.dingmao.platformsdk.callback.PlatformStringCallback;
+import com.dingmao.platformsdk.commonentity.EntityAddReq;
+import com.dingmao.platformsdk.commonentity.LogListReq;
+import com.dingmao.platformsdk.commonentity.LogListRsp;
+import com.dingmao.platformsdk.configurationmanagement.CategTreeReq;
+import com.dingmao.platformsdk.configurationmanagement.CategTreeRsp;
+import com.dingmao.platformsdk.configurationmanagement.CodeAddReq;
+import com.dingmao.platformsdk.configurationmanagement.CodeAddRsp;
+import com.dingmao.platformsdk.configurationmanagement.CodeListReq;
+import com.dingmao.platformsdk.configurationmanagement.CodeListRsp;
+import com.dingmao.platformsdk.configurationmanagement.CodeMultiListReq;
+import com.dingmao.platformsdk.configurationmanagement.CodeMultiListRsp;
+import com.dingmao.platformsdk.configurationmanagement.CodeSortAddReq;
+import com.dingmao.platformsdk.configurationmanagement.CodeSortAddRsp;
+import com.dingmao.platformsdk.configurationmanagement.CodeSortDelReq;
+import com.dingmao.platformsdk.configurationmanagement.CodeSortTreeRsp;
+import com.dingmao.platformsdk.configurationmanagement.CodeSortUpdateReq;
+import com.dingmao.platformsdk.configurationmanagement.CodeUpdateReq;
+import com.dingmao.platformsdk.configurationmanagement.CodeUpdateRsp;
+import com.dingmao.platformsdk.configurationmanagement.ParaAddReq;
+import com.dingmao.platformsdk.configurationmanagement.ParaAddRsp;
+import com.dingmao.platformsdk.configurationmanagement.ParaDelReq;
+import com.dingmao.platformsdk.configurationmanagement.ParaListReq;
+import com.dingmao.platformsdk.configurationmanagement.ParaListRsp;
+import com.dingmao.platformsdk.configurationmanagement.ParaRsp;
+import com.dingmao.platformsdk.configurationmanagement.ParaSortAddReq;
+import com.dingmao.platformsdk.configurationmanagement.ParaSortAddRsp;
+import com.dingmao.platformsdk.configurationmanagement.ParaSortDelReq;
+import com.dingmao.platformsdk.configurationmanagement.ParaSortTreeReq;
+import com.dingmao.platformsdk.configurationmanagement.ParaSortTreeRsp;
+import com.dingmao.platformsdk.configurationmanagement.ParaSortUpdateReq;
+import com.dingmao.platformsdk.configurationmanagement.ParaUpdateReq;
+import com.dingmao.platformsdk.interfaceservice.ApiCreateReq;
+import com.dingmao.platformsdk.interfaceservice.ApiCreateRsp;
+import com.dingmao.platformsdk.interfaceservice.ServiceListReq;
+import com.dingmao.platformsdk.interfaceservice.ServiceListRsp;
+import com.dingmao.platformsdk.interfaceservice.ServiceTreeReq;
+import com.dingmao.platformsdk.interfaceservice.SortCreateReq;
+import com.dingmao.platformsdk.interfaceservice.SortCreateRsp;
+import com.dingmao.platformsdk.interfaceservice.SortDelReq;
+import com.dingmao.platformsdk.interfaceservice.SortUpdateReq;
+import com.dingmao.platformsdk.internal.util.SPUtils;
+import com.dingmao.platformsdk.internal.util.StringUtils;
 import com.dingmao.platformsdk.login.LoginByPwdReq;
 import com.dingmao.platformsdk.login.LoginResponse;
+import com.dingmao.platformsdk.registrationrelated.AuditListRsp;
+import com.dingmao.platformsdk.registrationrelated.CodeRegReq;
+import com.dingmao.platformsdk.registrationrelated.CompAuditReq;
+import com.dingmao.platformsdk.registrationrelated.CompDetailReq;
+import com.dingmao.platformsdk.registrationrelated.CompDetailRsp;
+import com.dingmao.platformsdk.registrationrelated.PwdRegReq;
+import com.dingmao.platformsdk.registrationrelated.RegAddReq;
+import com.dingmao.platformsdk.registrationrelated.RegDetailReq;
+import com.dingmao.platformsdk.registrationrelated.RegDetailRsp;
+import com.dingmao.platformsdk.registrationrelated.RegListReq;
+import com.dingmao.platformsdk.registrationrelated.RegListRsp;
+import com.dingmao.platformsdk.registrationrelated.RegNoTokenRsp;
+import com.dingmao.platformsdk.registrationrelated.RegReq;
+import com.dingmao.platformsdk.registrationrelated.RegUpdateReq;
+import com.dingmao.platformsdk.registrationrelated.SaveInfoReq;
+import com.dingmao.platformsdk.registrationrelated.ScreenDataReq;
+import com.dingmao.platformsdk.registrationrelated.ScreenDataRsp;
+import com.dingmao.platformsdk.registrationrelated.SendCodeReq;
+import com.dingmao.platformsdk.registrationrelated.UserAuditReq;
+import com.dingmao.platformsdk.registrationrelated.VerifyCodeReq;
 import com.dingmao.platformsdk.resourcesmanagement.AuthAddReq;
 import com.dingmao.platformsdk.resourcesmanagement.AuthAddRsp;
 import com.dingmao.platformsdk.resourcesmanagement.AuthDelReq;
@@ -185,7 +248,736 @@ public class MainActivity extends AppCompatActivity {
     //"object_no":"organization",
     //"object_id":"814"
     public void create(View view) {
-        doAuthTempAdd();
+//        doSortCreate();
+//        screenTest();
+//        doEntityAdd();
+        addModule();
+    }
+
+    private void addModule() {
+        LogListReq request = new LogListReq();
+        request.setIs_page("1");
+        request.setModule("user");
+        PlatformClient.doLogList(request, new PlatformCallback<LogListRsp>() {
+            @Override
+            public void onSuccess(LogListRsp logListRsp) {
+
+            }
+
+            @Override
+            public void onFailed(String msg) {
+
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doEntityAdd(){
+        EntityAddReq request = new EntityAddReq();
+        request.setEntity_no("test");
+        request.setSystem_no(ApiConstant.SYSTEM_NO);
+        EntityAddReq.EntityReq entityReq = new EntityAddReq.EntityReq();
+        entityReq.setField_code("name");
+        entityReq.setVal("kxl");
+        List<EntityAddReq.EntityReq> list = new ArrayList<>();
+        list.add(entityReq);
+        request.setData(list);
+
+        PlatformClient.doEntityAdd(request,new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String o) {
+                Log.e("=====","o = " + o);
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+                Log.e("=====","o = " + msg);
+            }
+
+            /*@Override
+            public void onTokenInvalid(String msg) {
+
+            }*/
+        });
+    }
+
+    private void addScreenData() {
+
+    }
+
+    public void screenTest(){
+        List<ScreenDataReq.Conditions> condiList = new ArrayList<>();
+        //"dim1", "=", "31"
+        ScreenDataReq.Conditions conditions1 = new ScreenDataReq.Conditions();
+        conditions1.setCond_field("dim1");
+        conditions1.setCond_operation("=");
+        conditions1.setCond_value("31");
+
+        ScreenDataReq.Conditions conditions2 = new ScreenDataReq.Conditions();
+        conditions2.setCond_field("dim2");
+        conditions2.setCond_operation(">=");
+        conditions2.setCond_value("2020-01-01");
+
+        ScreenDataReq.Conditions conditions3 = new ScreenDataReq.Conditions();
+        conditions3.setCond_field("dim2");
+        conditions3.setCond_operation("<=");
+        conditions3.setCond_value("2021-01-01");
+
+        condiList.add(conditions1);
+        condiList.add(conditions2);
+        condiList.add(conditions3);
+
+        List<ScreenDataReq.Indexs> indexList = new ArrayList<>();
+        ScreenDataReq.Indexs index1 = new ScreenDataReq.Indexs();
+        index1.setIndex_field("dim2");
+        index1.setIndex_operation("date_format(?,'%m')");
+        index1.setAis("月份");
+
+        ScreenDataReq.Indexs index2 = new ScreenDataReq.Indexs();
+        index2.setIndex_field("index1");
+        index2.setIndex_operation("sum(?)");
+        index2.setAis("index1");
+
+        indexList.add(index1);
+        indexList.add(index2);
+
+        ScreenDataReq.Dims dims = new ScreenDataReq.Dims();
+        dims.setDim_field("dim2");
+        dims.setDim_operation("date_format(?,'%Y-%m')");
+        List<ScreenDataReq.Dims> dimList = new ArrayList<>();
+        dimList.add(dims);
+        ScreenDataReq req = new ScreenDataReq();
+        req.setIndex_no("yearOrderStat");
+        req.setConditions(condiList);
+        req.setIndexs(indexList);
+        req.setDims(dimList);
+        PlatformClient.doGetScreenData(req, new PlatformCallback<ScreenDataRsp>() {
+            @Override
+            public void onSuccess(ScreenDataRsp o) {
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doCompAudit(){
+        UserAuditReq request = new UserAuditReq();
+        PlatformClient.doAuditList(new PlatformCallback<AuditListRsp>() {
+            @Override
+            public void onSuccess(AuditListRsp o) {
+                Log.e("=====","o = " + o);
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onListSuccess(List<AuditListRsp> list) {
+
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+                Log.e("=====","o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+
+    public void doVerifyCode(){
+        VerifyCodeReq request = new VerifyCodeReq();
+        request.setPhone("17681840403");
+        request.setUsage_code("2");
+        request.setSystem_no(ApiConstant.SYSTEM_NO);
+        request.setTemplate_no(ApiConstant.TEMPLETE_CODE_LOGIN);
+        request.setUser_type("4");
+        PlatformClient.doVerifyCode(request,new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String o) {
+                Log.e("=====","o = " + o);
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+                Log.e("=====","o = " + msg);
+            }
+
+
+        });
+    }
+
+    public void doApiCreate(){
+        ApiCreateReq request = new ApiCreateReq();
+        request.setSort_no("test");
+        request.setApi_name("test");
+        request.setApi_url("/");
+        PlatformClient.doApiCreate(request,new PlatformCallback<ApiCreateRsp>() {
+            @Override
+            public void onSuccess(ApiCreateRsp o) {
+                Log.e("=====","o = " + o);
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onListSuccess(List<ApiCreateRsp> list) {
+                Log.e("=====","List = " + list);
+                Toast.makeText(MainActivity.this,list+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+                Log.e("=====","o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doServiceList(){
+        ServiceListReq request = new ServiceListReq();
+        request.setSort_no("test");
+        request.setIs_page("1");
+        PlatformClient.doServiceList(request,new PlatformCallback<ServiceListRsp>() {
+            @Override
+            public void onSuccess(ServiceListRsp o) {
+                Log.e("=====","o = " + o);
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onListSuccess(List<ServiceListRsp> list) {
+                Log.e("=====","List = " + list);
+                Toast.makeText(MainActivity.this,list+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+                Log.e("=====","o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doSortDel(){
+        SortDelReq request = new SortDelReq();
+        request.setApi_sort_id("45");
+        PlatformClient.doSortDel(request,new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String o) {
+                Log.e("=====","o = " + o);
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+                Log.e("=====","o = " + msg);
+            }
+
+
+        });
+    }
+
+
+
+    public void doSortCreate(){
+        SortCreateReq request = new SortCreateReq();
+        request.setSort_name("test");
+        request.setSort_no("test");
+        PlatformClient.doSortCreate(request,new PlatformCallback<SortCreateRsp>() {
+            @Override
+            public void onSuccess(SortCreateRsp o) {
+                Log.e("=====","o = " + o);
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onListSuccess(List<SortCreateRsp> list) {
+                Log.e("=====","List = " + list);
+                Toast.makeText(MainActivity.this,list+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+                Log.e("=====","o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doServiceTree(){
+        ServiceTreeReq request = new ServiceTreeReq();
+
+        PlatformClient.doServiceTree(request,new PlatformCallback<ServiceTreeReq>() {
+            @Override
+            public void onSuccess(ServiceTreeReq o) {
+                Log.e("=====","o = " + o);
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onListSuccess(List<ServiceTreeReq> list) {
+                Log.e("=====","o = " + list);
+                Toast.makeText(MainActivity.this,list+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+                Log.e("=====","o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doCategTree(){
+        CategTreeReq request = new CategTreeReq();
+
+        PlatformClient.doCategTree(request,new PlatformCallback<CategTreeRsp>() {
+            @Override
+            public void onSuccess(CategTreeRsp o) {
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+                Log.e("=====","o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doParaDel(){
+        ParaDelReq request = new ParaDelReq();
+        request.setPara_id("52");
+        PlatformClient.doParaDel(request,new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String o) {
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+                Log.e("=====","o = " + msg);
+            }
+
+        });
+    }
+
+    public void doParaUpdate(){
+        ParaUpdateReq request = new ParaUpdateReq();
+        request.setPara_id("52");
+        request.setPara_value("test11");
+        request.setPara_name("test11");
+        PlatformClient.doParaUpdate(request,new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String o) {
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+                Log.e("=====","o = " + msg);
+            }
+
+        });
+    }
+
+    public void doParaAdd(){
+        ParaAddReq request = new ParaAddReq();
+        request.setPara_name("test");
+        request.setPara_value("test");
+        request.setPara_code("1");
+        request.setSyspara_sort_id("23");
+        PlatformClient.doParaAdd(request,new PlatformCallback<ParaAddRsp>() {
+            @Override
+            public void onSuccess(ParaAddRsp o) {
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+                Log.e("=====","o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doPara(){
+        Map<String,String> request = new HashMap<>();
+        request.put("para_code","1");
+        PlatformClient.doPara(request,new PlatformCallback<ParaRsp>() {
+            @Override
+            public void onSuccess(ParaRsp o) {
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+                Log.e("=====","o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doParaList(){
+        ParaListReq request = new ParaListReq();
+        request.setPara_type("1");
+        request.setIs_page("1");
+        PlatformClient.doParaList(request,new PlatformCallback<ParaListRsp>() {
+            @Override
+            public void onSuccess(ParaListRsp o) {
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg+"",Toast.LENGTH_SHORT).show();
+                Log.e("=====","o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doParaSortDel(){
+        ParaSortDelReq request = new ParaSortDelReq();
+        request.setPara_sort_id("42");
+        PlatformClient.doParaSortDel(request,new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String o) {
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Log.e("=====","o = " + msg);
+            }
+
+        });
+    }
+
+    public void doParaSortUpdate(){
+        ParaSortUpdateReq request = new ParaSortUpdateReq();
+        request.setPara_sort_id("42");
+        request.setPara_sort_name("测试");
+        request.setIs_valud("1");
+        request.setP_para_type("1");
+        request.setPara_type("1");
+        PlatformClient.doParaSortUpdate(request,new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String o) {
+                Toast.makeText(MainActivity.this,o+"",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Log.e("=====","o = " + msg);
+            }
+
+        });
+    }
+
+    public void doParaSortAdd(){
+        ParaSortAddReq request = new ParaSortAddReq();
+        request.setPara_sort_name("test");
+        request.setIs_valud("1");
+        request.setP_para_type("1");
+        request.setPara_type("1");
+        PlatformClient.doParaSortAdd(request,new PlatformCallback<ParaSortAddRsp>() {
+            @Override
+            public void onSuccess(ParaSortAddRsp o) {
+                System.out.println("o = " + o);
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Log.e("=====","o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doParaSortTree(){
+        ParaSortTreeReq request = new ParaSortTreeReq();
+
+        PlatformClient.doParaSortTree(new PlatformCallback<ParaSortTreeRsp>() {
+            @Override
+            public void onSuccess(ParaSortTreeRsp o) {
+                System.out.println("o = " + o);
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                System.out.println("o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doCodeUpdate(){
+        CodeUpdateReq request = new CodeUpdateReq();
+        List<CodeUpdateReq.CodeObjReq> list = new ArrayList<>();
+        CodeUpdateReq.CodeObjReq codeObjReq = new CodeUpdateReq.CodeObjReq();
+        codeObjReq.setName("物料");
+        codeObjReq.setValue("1");
+        codeObjReq.setCode_id("832");
+        list.add(codeObjReq);
+        request.setData(list);
+        PlatformClient.doCodeUpdate(request,new PlatformCallback<CodeUpdateRsp>() {
+            @Override
+            public void onSuccess(CodeUpdateRsp o) {
+                System.out.println("o = " + o);
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                System.out.println("o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doCodeAdd(){
+        CodeAddReq request = new CodeAddReq();
+        List<CodeAddReq.CodeObjReq> list = new ArrayList<>();
+        CodeAddReq.CodeObjReq codeObjReq = new CodeAddReq.CodeObjReq();
+        codeObjReq.setCode_sort_id("300");
+        codeObjReq.setCode_type("test");
+        codeObjReq.setName("测试");
+        codeObjReq.setValue("test");
+        list.add(codeObjReq);
+        request.setData(list);
+        PlatformClient.doCodeAdd(request,new PlatformCallback<CodeAddRsp>() {
+            @Override
+            public void onSuccess(CodeAddRsp o) {
+                System.out.println("o = " + o);
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                System.out.println("o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doCodeMultiList(){
+        CodeMultiListReq request = new CodeMultiListReq();
+//        request.setCode_type("storeAppWork");
+        PlatformClient.doCodeMultiList(new PlatformListCallback<CodeMultiListRsp>() {
+            @Override
+            public void onSuccess(List<CodeMultiListRsp> o) {
+                System.out.println("o = " + o);
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                System.out.println("o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    public void doCodeList(){
+        CodeListReq request = new CodeListReq();
+        request.setCode_type("115");
+        PlatformClient.doCodeList(request,new PlatformCallback<CodeListRsp>() {
+            @Override
+            public void onSuccess(CodeListRsp o) {
+                System.out.println("o = " + o);
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                System.out.println("o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
+    }
+
+    private void doCodeSortDel(){
+        CodeSortDelReq request = new CodeSortDelReq();
+        request.setCode_sort_id("417");
+        PlatformClient.doCodeSortDel(request, new PlatformStringCallback() {
+            @Override
+            public void onSuccess(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+
+    private void doCodeSortUpdate(){
+        CodeSortUpdateReq request = new CodeSortUpdateReq();
+        request.setCode_type("test");
+        request.setSort_name("测试123");
+        request.setCode_sort_id("417");
+        PlatformClient.doCodeSortUpdate(request, new PlatformCallback<CodeSortAddRsp>() {
+            @Override
+            public void onSuccess(CodeSortAddRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onListSuccess(List<CodeSortAddRsp> list) {
+                Toast.makeText(MainActivity.this,list + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+
+
+        });
+    }
+
+    private void doCodeSortAdd(){
+        CodeSortAddReq request = new CodeSortAddReq();
+        request.setCode_type("test");
+        request.setSort_name("测试");
+        PlatformClient.doCodeSortAdd(request, new PlatformCallback<CodeSortAddRsp>() {
+            @Override
+            public void onSuccess(CodeSortAddRsp msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onListSuccess(List<CodeSortAddRsp> list) {
+                Toast.makeText(MainActivity.this,list + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                Toast.makeText(MainActivity.this,msg + "", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+
+
+        });
+    }
+
+    public void doCodeSortTree(){
+        PlatformClient.doCodeSortTree(new PlatformCallback<CodeSortTreeRsp>() {
+            @Override
+            public void onSuccess(CodeSortTreeRsp o) {
+                System.out.println("o = " + o);
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                System.out.println("o = " + msg);
+            }
+
+            @Override
+            public void onTokenInvalid(String msg) {
+
+            }
+        });
     }
 
     private void doTempAuthList(){

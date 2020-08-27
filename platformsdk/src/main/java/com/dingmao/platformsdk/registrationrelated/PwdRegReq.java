@@ -2,9 +2,14 @@ package com.dingmao.platformsdk.registrationrelated;
 
 import com.dingmao.platformsdk.verifynull.NotNull;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Create by atu on 2020/8/24
  */
+@Getter
+@Setter
 public class PwdRegReq {
     @NotNull(fileName = "账号")
     private String user_no;//账号

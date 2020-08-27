@@ -4,6 +4,7 @@ import com.dingmao.platformsdk.verifynull.NotNull;
 
 import java.util.List;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +26,7 @@ public class ScreenDataReq {
     private String is_mock;//是否模拟数据，1模拟数据，0 真实数据，若不传入，默认模拟数据
     private List<Conditions> conditions;
     private List<Indexs> indexs;
-    private Dims dims;
+    private List<Dims> dims;
 
 
     @Setter

@@ -14,4 +14,6 @@ public class ServiceListReq {
     @NotNull(fileName = "分类编号")
     private String sort_no;//分类编号
 
+    private String is_page;
+
 }

@@ -1528,8 +1528,12 @@ public class PlatformClient {
      * 获取代码值列表(多个)
      * @param callback
      */
-    public static void doCodeMultiList(CodeMultiListReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.CONFIG_GET_CODES_LIST,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+    public static void doCodeMultiList(PlatformListCallback callback){
+        doCodeMultiList(null,callback);
+    }
+
+    public static void doCodeMultiList(CodeMultiListReq request, PlatformListCallback callback){
+        OkHttpUtils.getInstance().doPost(ApiConstant.CONFIG_GET_CODES_LIST,obj2Json(request),callback);
     }
 
     /**
@@ -1560,11 +1564,15 @@ public class PlatformClient {
     }
 
     /**
-     * 获取标准码分类结构树
+     * 获取参数分类树
      * @param callback
      */
+    public static void doParaSortTree(PlatformCallback callback){
+        doParaSortTree(null,callback);
+    }
+
     public static void doParaSortTree(ParaSortTreeReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.CONFIG_GET_TREE,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+        OkHttpUtils.getInstance().doPost(ApiConstant.CONFIG_GET_TREE,obj2Json(request),callback);
     }
 
     /**
@@ -1599,7 +1607,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doParaList(ParaListReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.CONFIG_GET_LIST,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+        OkHttpUtils.getInstance().doPost(ApiConstant.CONFIG_GET_LIST,obj2Json(request),callback);
     }
 
     /**
@@ -1643,7 +1651,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doCategTree(CategTreeReq request, PlatformCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.CONFIG_GET_CATEG_TREE,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+        OkHttpUtils.getInstance().doPost(ApiConstant.CONFIG_GET_CATEG_TREE,obj2Json(request),callback);
     }
 
     /*******************配置管理end********************************************************************************************/
@@ -1654,10 +1662,13 @@ public class PlatformClient {
     /*******************接口服务start********************************************************************************************/
     /**
      * 获取服务分类结构树
-     * @param request
      * @param callback
      */
-    public static void doServiceTree(ServiceTreeReq request, PlatformListCallback callback){
+    public static void doServiceTree(PlatformCallback callback){
+        doServiceTree(null,callback);
+    }
+
+    public static void doServiceTree(ServiceTreeReq request, PlatformCallback callback){
         OkHttpUtils.getInstance().doPost(ApiConstant.SERVICE_GET_TREE,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
@@ -1693,7 +1704,7 @@ public class PlatformClient {
      * @param request
      * @param callback
      */
-    public static void doServiceList(ServiceListReq request, PlatformStringCallback callback){
+    public static void doServiceList(ServiceListReq request, PlatformCallback callback){
         OkHttpUtils.getInstance().doPost(ApiConstant.SERVICE_GET_LIST,obj2Json(request),callback,StringUtils.ObjNotNull(request));
     }
 
@@ -1759,7 +1770,7 @@ public class PlatformClient {
     }
 
     /**
-     * 登录前获取验证码（注册、修改密码等）
+     * 发送验证码（不关注用途）
      * @param request
      * @param callback
      */
@@ -1795,7 +1806,7 @@ public class PlatformClient {
     }
 
     /**
-     * 登录前获取验证码（注册、修改密码等）
+     * 注册用户-新增
      * @param request
      * @param callback
      */
@@ -1809,11 +1820,11 @@ public class PlatformClient {
      * @param callback
      */
     public static void doSaveInfo(SaveInfoReq request, PlatformStringCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.REGISTER_SAVE_FILL_REGISTER_INFO,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+        OkHttpUtils.getInstance().doPost(ApiConstant.REGISTER_SAVE_FILL_REGISTER_INFO,obj2Json(request),callback);
     }
 
     /**
-     * 完善资料
+     * 审核列表
      * @param request
      * @param callback
      */
@@ -1854,7 +1865,7 @@ public class PlatformClient {
      * @param callback
      */
     public static void doCompAudit(CompAuditReq request, PlatformStringCallback callback){
-        OkHttpUtils.getInstance().doPost(ApiConstant.REGISTER_AUDIT_UPDATE_COMPANY_APPLY,obj2Json(request),callback,StringUtils.ObjNotNull(request));
+        OkHttpUtils.getInstance().doPost(ApiConstant.REGISTER_AUDIT_UPDATE_COMPANY_APPLY,obj2Json(request),callback);
     }
 
     /**
@@ -1870,7 +1881,7 @@ public class PlatformClient {
      * 审核记录
      * @param callback
      */
-    public static void doAuditList(PlatformListCallback callback){
+    public static void doAuditList(PlatformCallback callback){
         OkHttpUtils.getInstance().doPost(ApiConstant.REGISTER_GET_USER_REG_AUDIT_LIST,"",callback);
     }
 
@@ -1955,7 +1966,7 @@ public class PlatformClient {
      * @param logListReq
      * @param callback
      */
-    public static void doLogList(LogListReq logListReq, PlatformStringCallback callback){
+    public static void doLogList(LogListReq logListReq, PlatformCallback callback){
         OkHttpUtils.getInstance().doPost(ApiConstant.ENTITY_LOG_LIST,obj2Json(logListReq),callback);
     }
 
@@ -2023,8 +2034,6 @@ public class PlatformClient {
 
     private static <T> String list2Json(List<T> list){
         return new Gson().toJson(list);
-//        JSONArray jsonArray = new JSONArray(list);
-//        return jsonArray.toString();
     }
 
 }

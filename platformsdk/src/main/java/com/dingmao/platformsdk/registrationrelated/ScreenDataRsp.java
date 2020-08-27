@@ -23,7 +23,7 @@ public class ScreenDataRsp {
     private double page;
     private double total_count;
     private double page_size;
-    private List<DataBean> data;
+    private DataBean data;
 
 
     @Getter
@@ -68,7 +68,7 @@ public class ScreenDataRsp {
             @Setter
             public static class YBean {
                 private List<String> legend;
-                private List<ItemsBean> items;
+                private ItemsBean items;
 
 
                 @Getter
@@ -80,11 +80,61 @@ public class ScreenDataRsp {
                      * data : ["pariatur","ullamco et","fugiat "]
                      */
 
-                    private String unit;
-                    private String name;
-                    private List<String> data;
+                    private Index1Bean index1;
+                    private Index2Bean index2;
+                    private Index3Bean index3;
+                    private Line1Bean line1;
+                    private Line2Bean line2;
+                    private Line3Bean line3;
 
 
+                    @Setter
+                    @Getter
+                    public static class Index1Bean {
+                        private String name;
+                        private String unit;
+                        private List<String> data;
+                    }
+
+                    @Setter
+                    @Getter
+                    public static class Index2Bean {
+                        private String name;
+                        private String unit;
+                        private List<String> data;
+                    }
+
+                    @Setter
+                    @Getter
+                    public static class Index3Bean {
+                        private String name;
+                        private String unit;
+                        private List<String> data;
+                    }
+
+                    @Setter
+                    @Getter
+                    public static class Line1Bean {
+                        private String name;
+                        private String unit;
+                        private List<String> data;
+                    }
+
+                    @Setter
+                    @Getter
+                    public static class Line2Bean {
+                        private String name;
+                        private String unit;
+                        private List<String> data;
+                    }
+
+                    @Setter
+                    @Getter
+                    public static class Line3Bean {
+                        private String name;
+                        private String unit;
+                        private List<String> data;
+                    }
                 }
             }
         }

@@ -5,6 +5,8 @@ package com.dingmao.platformsdk;
  */
 public class ApiConstant {
     public static final String SYSTEM_NO = "warehouse";//系统编码
+    public static final String TEMPLETE_CODE_LOGIN = "store_login";//denglu
+    public static final String TEMPLETE_CODE_RESET = "store_modifypass";//xiugai mima
 //    public static final String AUTH_CODE = "1F7514E9-FA11-CA29-FB8A-EEC6E1F534B7";//授权码
     public static final String AUTH_CODE = "6B17DC47-FA3D-2E96-89D4-F783F1A19C95";//授权码
 
