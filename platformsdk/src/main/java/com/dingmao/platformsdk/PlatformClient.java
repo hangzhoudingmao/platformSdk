@@ -294,7 +294,7 @@ public class PlatformClient {
      * @param sendCodeRequest
      * @param callback
      */
-    public static void doSendCode(SendCodeRequest sendCodeRequest, PlatformCallback callback){
+    public static void doSendCode(SendCodeRequest sendCodeRequest, PlatformStringCallback callback){
         OkHttpUtils.getInstance().doPost(ApiConstant.SEND_VALIDCODE,obj2Json(sendCodeRequest),callback,StringUtils.ObjNotNull(sendCodeRequest));
     }
 

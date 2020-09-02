@@ -2,11 +2,13 @@
 
 **几个主要的类介绍**
 
-|       类名      |           作用      |       成功回调       | 失败回调    |
-| ------------- | -------------------- |------------------ | ----------- |
-| `PlatformClient`  | 包含所有需要的请求函数（例如登录，发送短信） | 无 | 无|
-| `PlatformCallback<T>`  | 回调接口  |`onSuccess(T t)`,`onListSuccess(List<T> list)` | `onFailed(String msg)` |
-| `PlatformListCallback<T>` | 回调接口  |`onSuccess(List<T> list)` | `onFailed(String msg)` |
+|       类名              |           作用                           |       成功回调       | 失败回调                                          |
+| --------------------- | -------------------- | ------------------| ----------- |
+| `PlatformClient`          | 包含所有需要的请求函数（例如登录，发送短信） | 无           |     无                                                   |
+| `PlatformCallback<T>`     | 回调接口                             |`onSuccess(T t)`,`onListSuccess(List<T> list)` |  `onFailed(String msg)` |
+| `PlatformListCallback<T>` | 回调接口                             |`onSuccess(List<T> list)` | `onFailed(String msg)`                       |
+| `PlatformStringCallback` |  回调接口                             |`onSuccess(String msg)` | `onFailed(String msg)`                         |
+
 回调默认都是在主线程执行
 
 泛型（T）: 返回需要的数据类
@@ -17,17 +19,6 @@ PlatformCallback: onListSuccess(List<T> list) 该回调函数的功能是返回�
 
 #### 通用登录接口
 
-> 基本信息
-
-**path**: /api/v1/access/login/do_login
-
-**method**: POST
-
-**request**: {"user_no":"13575776011","password":"hz123456", "login_type":"1"}
-
-**response**:{"code":0,"msg":"SUCCESS","action":"api_v1_access_login_do_login","data":{"user_id":"304","comp_id":"17","org_no":"001001","dept_no":"005","is_admin":"0","user_type":"4","user_no":"13575776011","user_name":"13575776011","phone":"13575776011","mail":"13575776011@qq.com","avatar":"console/upload/industry/pic/u=3325973037,2445086895&fm=26&gp=0.jpg","status":"1","audit_status":"2","system_no":"ass","sid":0,"company_type":"1","business_types":"1,2,3,4,5,6,7,8","job_list":[{"user_id":"304","job_id":"96","job_name":"工业化项目组","company_id":"17","dept_id":"66","dept_no":"005","dept_name":"技术部（dept）","dept_type":"1","p_dept_id":null,"p_dept_no":"","p_dept_name":null,"org_id":"67","org_no":"001001","org_name":"测试集团（org）","org_type":"2","p_org_id":"39","p_org_no":"001","p_org_name":"丁卯"}],"org_type":"2","access_token":"","refresh_token":""}}
-
-#### java代码
 ```
 PlatformClient.doLogin(new LoginByPwdReq("zhangsan", "123456"), new PlatformCallback<LoginResponse>() {
                 @Override
@@ -47,3 +38,183 @@ PlatformClient.doLogin(new LoginByPwdReq("zhangsan", "123456"), new PlatformCall
 **LoginByPwdReq**: 请求类 需要传入账号,密码
 
 **LoginResponse**: 返回类 包含需要的数据
+
+### 基础服务
+
+#### 上传文件
+
+>请求参数
+
+**body**
+
+| 参数名称       | 参数类型     | 参数说明 | 必传 |
+| -------------| ---------- | -------|-------|
+| pic_file_apk  | File       | 文件   | 是 |
+| rela_id       | String     | 业务关联Id | 否 |
+| module        | String     | 模块编码   | 否 |
+
+```
+PlatformClient.doUploadFile(Map<String,String> map, File file,String fileKey,PlatformCallback<UploadFileResponse> callback)
+```
+
+#### 导出权限项、菜单、标准码表数据SQL脚本
+
+**request**: TableDataRequest
+
+**response**: TableDataResponse
+
+```
+PlatformClient.doExportTable(TableDataRequest dataRequest, PlatformCallback<TableDataResponse> callback)
+```
+
+#### 获取文件列表
+
+**request**: FileListRequest
+
+**response**: FileListResponse
+
+```
+PlatformClient.doFileList(FileListRequest fileListRequest, PlatformCallback<FileListResponse> callback)
+```
+
+#### 删除文件
+
+**request**: FileDeleteRequest
+
+```
+PlatformClient.doDeleteFile(FileDeleteRequest request, PlatformStringCallback callback)
+```
+
+#### 日志上报
+
+**request**: UploadLogRequest
+
+```
+PlatformClient.doUploadLog(List<UploadLogRequest> list,PlatformStringCallback callback)
+```
+
+#### 发送短信
+
+**request**: SendMsgRequest
+
+**response**: SendMsgResponse
+
+```
+PlatformClient.doSendMsg(SendMsgRequest request, PlatformCallback<SendMsgResponse> callback)
+```
+
+#### 发送短信_群发
+
+**request**: SmsGroupReq
+
+**response**: SendMsgResponse
+
+```
+PlatformClient.doSendSms(List<SmsGroupReq> list, PlatformCallback<SendMsgResponse> callback)
+```
+
+#### 获取短信发送记录
+
+**request**: SmsListRequest
+
+**response**: SmsListResponse
+
+```
+PlatformClient.doSmsList(SmsListRequest request, PlatformCallback<SmsListResponse> callback)
+```
+
+#### 短信模版创建
+
+**request**: SmsTempCreateRequest
+
+**response**: SmsTempCreateResponse
+
+```
+PlatformClient.doSmsTempCreate(SmsTempCreateRequest request, PlatformCallback callback)
+```
+
+#### 获取短信模板
+
+**request**: SmsTempGetRequest
+
+**response**: SmsTempGetResponse
+
+```
+PlatformClient.doSmsTempGet(SmsTempGetRequest smsTempGetRequest, PlatformCallback callback)
+```
+
+#### 发送验证码
+
+**request**: SendCodeRequest
+
+**response**: SendCodeResponse
+
+```
+PlatformClient.doSendCode(SendCodeRequest sendCodeRequest, PlatformStringCallback callback)
+```
+
+#### 校验验证码
+
+**request**: CheckCodeRequest
+
+```
+PlatformClient.doCheckCode(CheckCodeRequest mCheckCodeRequest, PlatformStringCallback callback)
+```
+
+#### 获取区域树
+
+**request**: AreaTreeRequest
+
+**response**: AreaTreeResponse
+
+```
+PlatformClient.doAreaTree(AreaTreeRequest areaTreeRequest, PlatformListCallback callback)
+```
+
+#### 区域-下拉框-省列表
+
+**request**: BoxProvinceRequest
+
+**response**: BoxProvinceResponse
+
+```
+PlatformClient.doProvince(BoxProvinceRequest mAreaBoxProRequest, PlatformListCallback callback)
+```
+
+#### 区域-下拉框-市列表
+
+**request**: BoxCityRequest
+
+**response**: BoxCityResponse
+
+```
+PlatformClient.doCity(BoxCityRequest boxCityRequest, PlatformListCallback callback)
+```
+
+#### 区域-下拉框-区列表
+
+**request**: BoxAreaRequest
+
+**response**: BoxAreaResponse
+
+```
+PlatformClient.doArea(BoxAreaRequest boxAreaRequest, PlatformListCallback callback)
+```
+
+#### 区域-下拉框-街道列表
+
+**request**: BoxStreeRequest
+
+**response**: BoxStreeResponse
+
+```
+PlatformClient.doStree(BoxStreeRequest boxStreeRequest, PlatformListCallback callback)
+```
+
+#### 获取OSS地址
+
+**response**: OssResponse
+
+```
+PlatformClient.doOSS(PlatformCallback callback)
+```
