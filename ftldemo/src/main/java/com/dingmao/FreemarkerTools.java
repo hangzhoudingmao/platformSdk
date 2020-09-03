@@ -148,25 +148,11 @@ public class FreemarkerTools {
                         rspPFieldNote.add(entry1.getValue());
                         break;
                     case "type":
-                        switch (entry1.getValue()) {
-                            case "string":
-                                rspPType.add("String");
-                                break;
-                            case "array":
-                                rspPType.add("List");
-                                break;
-                            case "number":
-                                rspPType.add("Int");
-                                break;
-                        }
+                        rspPType.add(matchValue(entry1.getValue()))
                         break;
                     case "items":
                         operateOneSubRsp(gson,entry1,outDirFile,packageName,className,"OneSub" + className);
                         break;
-                    case "children":
-                        //,"children":{"type":"array","items":{"type":"object","properties":{"source_sort_id":{"type":"string","description":"系统资源分类标识"}
-                        break;
-
                 }
             }
         }
@@ -202,17 +188,7 @@ public class FreemarkerTools {
                             Map.Entry<String,String> entry2 = iterator2.next();
                             switch (entry2.getKey()){
                                 case "type":
-                                    switch (entry2.getValue()) {
-                                        case "string":
-                                            rspCType.add("String");
-                                            break;
-                                        case "array":
-                                            rspCType.add("List");
-                                            break;
-                                        case "number":
-                                            rspCType.add("Int");
-                                            break;
-                                    }
+                                    rspCType.add(matchValue(entry2.getValue()))
                                     break;
                                 case "description":
                                     rspCFieldNote.add(entry2.getValue());
@@ -223,7 +199,6 @@ public class FreemarkerTools {
                             }
                         }
                     }
-//                    realOperateRsp(outDirFile,packageName,childName + className,rspCFieldName,rspCFieldNote,rspCType);
                     createContainListRsp(outDirFile,packageName,childName,rspCFieldName,rspCFieldNote,rspCType,"TwoSub" + className);
                     break;
             }
@@ -258,17 +233,7 @@ public class FreemarkerTools {
                             Map.Entry<String,String> entry2 = iterator2.next();
                             switch (entry2.getKey()){
                                 case "type":
-                                    switch (entry2.getValue()) {
-                                        case "string":
-                                            rspTType.add("String");
-                                            break;
-                                        case "array":
-                                            rspTType.add("List");
-                                            break;
-                                        case "number":
-                                            rspTType.add("Int");
-                                            break;
-                                    }
+                                    rspTType.add(matchValue(entry2.getValue()))
                                     break;
                                 case "description":
                                     rspTFieldNote.add(entry2.getValue());
@@ -453,15 +418,7 @@ public class FreemarkerTools {
                         reqParentFieldNote.add((String) entry.getValue());
                         break;
                     case "type":
-                        if ("string".equals(entry.getValue())) {
-                            reqParentType.add("String");
-                        } else if ("array".equals(entry.getValue())) {
-                            reqParentType.add("List");
-                        } else if ("object".equals(entry.getValue())) {
-                            reqParentType.add("object");
-                        } else if ("number".equals(entry.getValue())) {
-                            reqParentType.add("Int");
-                        }
+                        reqParentType.add(matchValue(entry.getValue()))
                         break;
                     case "items":
                         reqChildType = new ArrayList<>();
@@ -667,5 +624,18 @@ public class FreemarkerTools {
         String json = gson.toJson(value);
         Map map = gson.fromJson(json, Map.class);
         return map;
+    }
+
+    private String matchValue(String value){
+        switch (value){
+            case "string":
+                return "String";
+            case "array":
+                return "List";
+            case "number":
+                return "Int";
+            case "object":
+                return value;
+        }
     }
 }

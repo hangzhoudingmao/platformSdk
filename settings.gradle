@@ -1,1 +1,1 @@
-include ':app', ':platformsdk', ':FreeMarkerLib'
+include ':app', ':platformsdk'
