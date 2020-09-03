@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="ideaworkspace.open-sdk-java.app" target="1.8" />
+      <module name="ideaworkspace.open-sdk-java.platformsdk" target="1.8" />
+      <module name="open-sdk-java.app" target="1.8" />
+      <module name="open-sdk-java.platformsdk" target="1.8" />
+      <module name="temptools" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

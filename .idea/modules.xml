@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FreeMarkerLib/FreeMarkerLib.iml" filepath="$PROJECT_DIR$/FreeMarkerLib/FreeMarkerLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/platformSdk.iml" filepath="$PROJECT_DIR$/platformSdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ideaworkspace.open-sdk-java.iml" filepath="$PROJECT_DIR$/.idea/modules/ideaworkspace.open-sdk-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ideaworkspace.open-sdk-java.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ideaworkspace.open-sdk-java.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/platformsdk/ideaworkspace.open-sdk-java.platformsdk.iml" filepath="$PROJECT_DIR$/.idea/modules/platformsdk/ideaworkspace.open-sdk-java.platformsdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/open-sdk-java.iml" filepath="$PROJECT_DIR$/.idea/modules/open-sdk-java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FreeMarkerLib/open-sdk-java.FreeMarkerLib.iml" filepath="$PROJECT_DIR$/.idea/modules/FreeMarkerLib/open-sdk-java.FreeMarkerLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/open-sdk-java.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/open-sdk-java.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/platformsdk/open-sdk-java.platformsdk.iml" filepath="$PROJECT_DIR$/.idea/modules/platformsdk/open-sdk-java.platformsdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/platformsdk/platformsdk.iml" filepath="$PROJECT_DIR$/platformsdk/platformsdk.iml" />
     </modules>
   </component>
