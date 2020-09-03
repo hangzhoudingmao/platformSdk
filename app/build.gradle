@@ -41,7 +41,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(path: ':platformsdk')
     implementation 'org.freemarker:freemarker:2.3.23'
-    implementation project(path: ':FreeMarkerLib')
     //图片选择库
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     //rxpermissions权限
