@@ -6,16 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.dingmao.platformsdk.ApiConstant;
-import com.dingmao.platformsdk.PlatformCallback;
 import com.dingmao.platformsdk.PlatformClient;
 import com.dingmao.platformsdk.PlatformSDK;
+import com.dingmao.platformsdk.callback.PlatformCallback;
 import com.dingmao.platformsdk.callback.PlatformDownloadCallback;
 import com.dingmao.platformsdk.callback.PlatformListCallback;
 import com.dingmao.platformsdk.callback.PlatformStringCallback;
@@ -58,29 +59,12 @@ import com.dingmao.platformsdk.interfaceservice.ServiceTreeReq;
 import com.dingmao.platformsdk.interfaceservice.SortCreateReq;
 import com.dingmao.platformsdk.interfaceservice.SortCreateRsp;
 import com.dingmao.platformsdk.interfaceservice.SortDelReq;
-import com.dingmao.platformsdk.interfaceservice.SortUpdateReq;
-import com.dingmao.platformsdk.internal.util.SPUtils;
 import com.dingmao.platformsdk.internal.util.StringUtils;
 import com.dingmao.platformsdk.login.LoginByPwdReq;
 import com.dingmao.platformsdk.login.LoginResponse;
 import com.dingmao.platformsdk.registrationrelated.AuditListRsp;
-import com.dingmao.platformsdk.registrationrelated.CodeRegReq;
-import com.dingmao.platformsdk.registrationrelated.CompAuditReq;
-import com.dingmao.platformsdk.registrationrelated.CompDetailReq;
-import com.dingmao.platformsdk.registrationrelated.CompDetailRsp;
-import com.dingmao.platformsdk.registrationrelated.PwdRegReq;
-import com.dingmao.platformsdk.registrationrelated.RegAddReq;
-import com.dingmao.platformsdk.registrationrelated.RegDetailReq;
-import com.dingmao.platformsdk.registrationrelated.RegDetailRsp;
-import com.dingmao.platformsdk.registrationrelated.RegListReq;
-import com.dingmao.platformsdk.registrationrelated.RegListRsp;
-import com.dingmao.platformsdk.registrationrelated.RegNoTokenRsp;
-import com.dingmao.platformsdk.registrationrelated.RegReq;
-import com.dingmao.platformsdk.registrationrelated.RegUpdateReq;
-import com.dingmao.platformsdk.registrationrelated.SaveInfoReq;
 import com.dingmao.platformsdk.registrationrelated.ScreenDataReq;
 import com.dingmao.platformsdk.registrationrelated.ScreenDataRsp;
-import com.dingmao.platformsdk.registrationrelated.SendCodeReq;
 import com.dingmao.platformsdk.registrationrelated.UserAuditReq;
 import com.dingmao.platformsdk.registrationrelated.VerifyCodeReq;
 import com.dingmao.platformsdk.resourcesmanagement.AuthAddReq;
@@ -88,11 +72,8 @@ import com.dingmao.platformsdk.resourcesmanagement.AuthAddRsp;
 import com.dingmao.platformsdk.resourcesmanagement.AuthDelReq;
 import com.dingmao.platformsdk.resourcesmanagement.AuthListReq;
 import com.dingmao.platformsdk.resourcesmanagement.AuthListRsp;
-import com.dingmao.platformsdk.resourcesmanagement.AuthTempAddReq;
-import com.dingmao.platformsdk.resourcesmanagement.AuthTempDelReq;
 import com.dingmao.platformsdk.resourcesmanagement.AuthTempListReq;
 import com.dingmao.platformsdk.resourcesmanagement.AuthTempListRsp;
-import com.dingmao.platformsdk.resourcesmanagement.AuthTempUpdateReq;
 import com.dingmao.platformsdk.resourcesmanagement.AuthUpdateReq;
 import com.dingmao.platformsdk.resourcesmanagement.MenuAddReq;
 import com.dingmao.platformsdk.resourcesmanagement.MenuAddRsp;
@@ -134,7 +115,6 @@ import com.dingmao.platformsdk.usermanagement.AssignAuthReq;
 import com.dingmao.platformsdk.usermanagement.CompJobListReq;
 import com.dingmao.platformsdk.usermanagement.JobAddReq;
 import com.dingmao.platformsdk.usermanagement.ResetCodeReq;
-import com.dingmao.platformsdk.usermanagement.ResetPwdReq;
 import com.dingmao.platformsdk.usermanagement.UserAddReq;
 import com.dingmao.platformsdk.usermanagement.UserAddRsp;
 import com.dingmao.platformsdk.usermanagement.UserAuthReq;
@@ -152,7 +132,6 @@ import com.dingmao.platformsdk.usermanagement.UserMultiListReq;
 import com.dingmao.platformsdk.usermanagement.UserMultiListRsp;
 import com.dingmao.platformsdk.usermanagement.UserStateReq;
 import com.dingmao.platformsdk.usermanagement.UserUpdateReq;
-import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -173,16 +152,26 @@ import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity {
 
+    private List<String> datas = new ArrayList<>();
+    private RecyclerView rv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         PlatformSDK.init(getApplication());
-
+        String[] array = this.getResources().getStringArray(R.array.item);
+        for (String str :
+                array) {
+            datas.add(str);
+        }
+        rv = findViewById(R.id.recyclerView);
+        MainAdapter mainAdapter = new MainAdapter(this, datas);
+        rv.setLayoutManager(new GridLayoutManager(MainActivity.this,3));
+        rv.setAdapter(mainAdapter);
     }
 
     public void login(View view) {
-        PlatformClient.doLogin(new LoginByPwdReq("wareCsy", "hz123456"), new PlatformCallback<LoginResponse>() {
+        /*PlatformClient.doLogin(new LoginByPwdReq("wareCsy", "hz123456"), new PlatformCallback<LoginResponse>() {
             @Override
             public void onSuccess(LoginResponse o) { }
 
@@ -194,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTokenInvalid(String msg) { }
-        });
+        });*/
     }
 
     public void source(View view) {
@@ -218,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String json = "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"rela_id\":{\"type\":\"string\",\"description\":\"业务关联id\"},\"module\":{\"type\":\"string\",\"description\":\"模块\"},\"file_path\":{\"type\":\"string\",\"description\":\"文件路径\"},\"file_id\":{\"type\":\"string\",\"description\":\"文件Id\"},\"is_delete\":{\"type\":\"string\",\"description\":\"是否被删除，使用标准码yn\"},\"start_time\":{\"type\":\"string\"},\"end_time\":{\"type\":\"string\"},\"create_id\":{\"type\":\"string\",\"description\":\"上传人Id\"},\"is_page\":{\"type\":\"string\",\"description\":\"是否分页（0：否，1：是）\"},\"page\":{\"type\":\"string\",\"description\":\"页码\"},\"page_size\":{\"type\":\"string\",\"description\":\"每页数量\"}},\"required\":[\"is_page\"]}";
 
-    public void parse(View view) {
+    /*public void parse(View view) {
         Gson gson = new Gson();
         Map map = new Gson().fromJson(json, Map.class);
         for (Object m : map.entrySet()) {
@@ -236,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-    }
+    }*/
 
     //province_no=110000
     //city_no=110100
@@ -251,13 +240,15 @@ public class MainActivity extends AppCompatActivity {
 //        doSortCreate();
 //        screenTest();
 //        doEntityAdd();
-        addModule();
+//        addModule();
     }
 
     private void addModule() {
-        LogListReq request = new LogListReq();
+        /*LogListReq request = new LogListReq();
         request.setIs_page("1");
         request.setModule("user");
+        StringUtils.obj2Json(request);
+
         PlatformClient.doLogList(request, new PlatformCallback<LogListRsp>() {
             @Override
             public void onSuccess(LogListRsp logListRsp) {
@@ -273,13 +264,13 @@ public class MainActivity extends AppCompatActivity {
             public void onTokenInvalid(String msg) {
 
             }
-        });
+        });*/
     }
 
     public void doEntityAdd(){
         EntityAddReq request = new EntityAddReq();
         request.setEntity_no("test");
-        request.setSystem_no(ApiConstant.SYSTEM_NO);
+//        request.setSystem_no(ApiConstant.SYSTEM_NO);
         EntityAddReq.EntityReq entityReq = new EntityAddReq.EntityReq();
         entityReq.setField_code("name");
         entityReq.setVal("kxl");
@@ -409,8 +400,8 @@ public class MainActivity extends AppCompatActivity {
         VerifyCodeReq request = new VerifyCodeReq();
         request.setPhone("17681840403");
         request.setUsage_code("2");
-        request.setSystem_no(ApiConstant.SYSTEM_NO);
-        request.setTemplate_no(ApiConstant.TEMPLETE_CODE_LOGIN);
+//        request.setSystem_no(ApiConstant.SYSTEM_NO);
+//        request.setTemplate_no(ApiConstant.TEMPLETE_CODE_LOGIN);
         request.setUser_type("4");
         PlatformClient.doVerifyCode(request,new PlatformStringCallback() {
             @Override
@@ -1953,40 +1944,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-
-
-    public void freemarker(View view) {
-        String absolutePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-        Log.e("===absolutePath===",absolutePath);
-        File file = new File(absolutePath);
-        if (!file.exists()){
-            file.mkdir();
-        }
-        String tempFile = absolutePath + "/main.ftl";
-        if (!new File(tempFile).exists()){
-            try {
-                InputStream open = getResources().getAssets().open("temp.ftl");
-                FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
-                byte[] buffer = new byte[7168];
-                int count = 0;
-                while ((count = open.read()) > 0){
-                    fileOutputStream.write(buffer,0,count);
-                }
-                fileOutputStream.flush();
-                fileOutputStream.close();
-                open.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        TempUtils tempUtils = new TempUtils();
-        try {
-            tempUtils.create(absolutePath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     protected void onResume() {

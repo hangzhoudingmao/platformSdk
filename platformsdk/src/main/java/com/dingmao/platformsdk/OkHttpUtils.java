@@ -3,11 +3,11 @@ package com.dingmao.platformsdk;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextUtils;
 import android.util.Log;
 
 
 import com.dingmao.platformsdk.callback.FlushTokenCallback;
+import com.dingmao.platformsdk.callback.PlatformCallback;
 import com.dingmao.platformsdk.callback.PlatformDownloadCallback;
 import com.dingmao.platformsdk.callback.PlatformListCallback;
 import com.dingmao.platformsdk.callback.PlatformStringCallback;
@@ -16,22 +16,16 @@ import com.dingmao.platformsdk.internal.util.SPUtils;
 import com.dingmao.platformsdk.internal.util.StringUtils;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 /**

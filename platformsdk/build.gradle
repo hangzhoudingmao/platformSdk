@@ -34,14 +34,14 @@ android {
 }
 
 task clearJar(type: Delete) {
-    delete 'build/outputs/okhttputils.jar'
+    delete 'build/outputs/platformsdk-1.0.0.jar'
 }
 
 task makeJar(type: Copy) {
-    from('build/intermediates/bundles/release/')
+    from('build/intermediates/packaged-classes/release/')
     into('build/outputs/')
     include('classes.jar')
-    rename('classes.jar', 'okhttputils.jar')
+    rename('classes.jar', 'platformsdk.jar')
 }
 
 makeJar.dependsOn(clearJar, build)
@@ -51,13 +51,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    api 'com.squareup.okhttp3:okhttp:3.11.0'
+    api 'com.squareup.okhttp3:okhttp:4.0.0'
     api 'com.google.code.gson:gson:2.8.5'
-    api 'com.squareup.okhttp3:logging-interceptor:3.8.0'
-    api "com.android.support:appcompat-v7:28.0.0"
-    api "com.android.support:support-v4:28.0.0"
-    compileOnly "org.projectlombok:lombok:1.16.18"
-    annotationProcessor group:'org.projectlombok',name:'lombok',version:'1.16.18'
-
+    api 'com.squareup.okhttp3:logging-interceptor:4.0.0'
+    api 'com.android.support:appcompat-v7:28.0.0'
+    api 'com.android.support:support-v4:28.0.0'
+    compileOnly 'org.projectlombok:lombok:1.16.18'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
     api 'org.glassfish:javax.annotation:10.0-b28'
+//    implementation files('libs/okhttp-3.2.0.jar')
 }

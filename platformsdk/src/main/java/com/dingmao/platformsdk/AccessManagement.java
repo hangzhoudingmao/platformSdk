@@ -1,8 +1,8 @@
 package com.dingmao.platformsdk;
 
-import android.text.TextUtils;
 import android.util.Log;
 
+import com.dingmao.platformsdk.callback.PlatformCallback;
 import com.dingmao.platformsdk.callback.PlatformStringCallback;
 import com.dingmao.platformsdk.internal.util.SPUtils;
 import com.dingmao.platformsdk.internal.util.StringUtils;
@@ -12,11 +12,7 @@ import com.dingmao.platformsdk.login.LoginKeyResponse;
 import com.dingmao.platformsdk.login.LoginByPwdReq;
 import com.dingmao.platformsdk.login.LoginResponse;
 import com.dingmao.platformsdk.usermanagement.ResetPwdReq;
-import com.dingmao.platformsdk.verifynull.VerifyAnnotation;
-import com.dingmao.platformsdk.verifynull.VerifyResult;
 import com.google.gson.Gson;
-
-import java.util.List;
 
 /**
  * Create by atu on 2020/8/14

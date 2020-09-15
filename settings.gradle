@@ -1,1 +1,1 @@
-include ':app', ':platformsdk'
+include ':app', ':platformsdk','ftldemo'

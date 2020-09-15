@@ -19,6 +19,7 @@ import com.dingmao.platformsdk.basicservices.SmsListRequest;
 import com.dingmao.platformsdk.basicservices.SmsTempCreateRequest;
 import com.dingmao.platformsdk.basicservices.SmsTempGetRequest;
 import com.dingmao.platformsdk.basicservices.TableDataRequest;
+import com.dingmao.platformsdk.callback.PlatformCallback;
 import com.dingmao.platformsdk.callback.PlatformDownloadCallback;
 import com.dingmao.platformsdk.callback.PlatformListCallback;
 import com.dingmao.platformsdk.callback.PlatformStringCallback;
@@ -55,11 +56,9 @@ import com.dingmao.platformsdk.configurationmanagement.ParaDelReq;
 import com.dingmao.platformsdk.configurationmanagement.ParaSortAddReq;
 import com.dingmao.platformsdk.configurationmanagement.ParaSortDelReq;
 import com.dingmao.platformsdk.configurationmanagement.ParaListReq;
-import com.dingmao.platformsdk.configurationmanagement.ParaReq;
 import com.dingmao.platformsdk.configurationmanagement.ParaSortTreeReq;
 import com.dingmao.platformsdk.configurationmanagement.ParaSortUpdateReq;
 import com.dingmao.platformsdk.configurationmanagement.ParaUpdateReq;
-import com.dingmao.platformsdk.http.HttpUtils;
 import com.dingmao.platformsdk.insertmanagement.CheckPowerReq;
 import com.dingmao.platformsdk.insertmanagement.EquipCheckReq;
 import com.dingmao.platformsdk.insertmanagement.EquipCreateReq;
@@ -154,7 +153,6 @@ import com.dingmao.platformsdk.resourcesmanagement.TempAuthListReq;
 import com.dingmao.platformsdk.screendata.ScreenWriteDataReq;
 import com.dingmao.platformsdk.systemmanagement.BasicConfigReq;
 import com.dingmao.platformsdk.systemmanagement.CheckUpdateReq;
-import com.dingmao.platformsdk.systemmanagement.SysAuthReq;
 import com.dingmao.platformsdk.systemmanagement.SysDelVerReq;
 import com.dingmao.platformsdk.systemmanagement.SysLogReq;
 import com.dingmao.platformsdk.systemmanagement.SysPubVerReq;
@@ -188,10 +186,7 @@ import com.dingmao.platformsdk.usermanagement.UserStateReq;
 import com.dingmao.platformsdk.usermanagement.UserUpdateReq;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
-
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -213,7 +208,7 @@ public class PlatformClient {
      * @param file
      * @param callback
      */
-    public static void doUploadFile(Map<String,String> map, File file,String fileKey,PlatformCallback callback){
+    public static void doUploadFile(Map<String,String> map, File file, String fileKey, PlatformCallback callback){
         OkHttpUtils.getInstance().doPostFile(ApiConstant.UPLOAD_FILE,map,file,fileKey,callback);
     }
 
@@ -2020,7 +2015,7 @@ public class PlatformClient {
             this.mCallback = callback;
         }
 
-        DataResult(T t, PlatformCallback<T> callback, String msg, int type) {
+        public DataResult(T t, PlatformCallback<T> callback, String msg, int type) {
             this.t = t;
             mCallback = callback;
             this.msg = msg;

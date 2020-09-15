@@ -1,9 +1,12 @@
-package com.dingmao.platformsdk;
+package com.dingmao.platformsdk.callback;
 
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.dingmao.platformsdk.ApiConstant;
+import com.dingmao.platformsdk.PlatformBaseResponse;
+import com.dingmao.platformsdk.PlatformClient;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -43,7 +46,6 @@ public abstract class PlatformCallback<T> implements Callback {
     //在主线程回调
     public abstract void onSuccess(T t);
     public void onListSuccess(List<T> list){}
-    public void onSuccess(String msg){};
 
     public abstract void onFailed(String msg);
 

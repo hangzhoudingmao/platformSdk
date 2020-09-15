@@ -1,9 +1,7 @@
 package com.dingmao.platformsdk.callback;
 
 import android.os.Handler;
-import android.util.Log;
 
-import com.dingmao.platformsdk.ApiConstant;
 import com.dingmao.platformsdk.PlatformBaseResponse;
 import com.dingmao.platformsdk.PlatformClient;
 import com.google.gson.Gson;
@@ -12,8 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 import okhttp3.Call;
 import okhttp3.Callback;

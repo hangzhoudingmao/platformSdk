@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">PlatformSdk</string>
+    <string-array name="item">
+        <item>基础服务</item>
+        <item>编码规则管理</item>
+        <item>系统资源</item>
+        <item>接入管理</item>
+        <item>组织结构</item>
+        <item>用户管理</item>
+        <item>系统管理</item>
+        <item>资源管理</item>
+        <item>配置管理</item>
+        <item>接口服务</item>
+        <item>注册相关</item>
+        <item>大屏数据</item>
+        <item>通用实体</item>
+    </string-array>
+    <array name="item1"></array>
 </resources>

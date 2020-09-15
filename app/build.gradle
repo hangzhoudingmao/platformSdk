@@ -30,23 +30,38 @@ android {
             includeAndroidResources = true
         }
     }
+    sourceSets {
+        main{
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    repositories{
+        flatDir{
+            dirs 'libs'
+        }
+    }
+
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:28.0.0"
-    implementation "com.android.support.constraint:constraint-layout:1.1.3"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation project(path: ':platformsdk')
     implementation 'org.freemarker:freemarker:2.3.23'
     //图片选择库
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     //rxpermissions权限
-    implementation "com.github.tbruyelle:rxpermissions:0.10.2"
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
     testImplementation 'org.robolectric:robolectric:3.8'
     testImplementation 'org.mockito:mockito-core:2.19.0'
+//    implementation(name: 'platformsdk-debug', ext: 'aar')
+    //    implementation project(path: ':platformsdk')
+    implementation files('libs/platformsdk-1.0.0.jar')
 }

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+            http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- Pom的版本号，永远是4.0.0 -->
+    <modelVersion>4.0.0</modelVersion>
+    <!-- 组织域名的倒转写法，其实就是AndroidManifest.xml里面package节点的值-->
+    <groupId>org.hello</groupId>
+    <!-- 项目的名字，比如在IDE的project view里面显示的名字, 注意不一定是app显示在手机上的名字-->
+    <artifactId>gs-maven-android</artifactId>
+    <!-- 项目版本号-->
+    <version>1.0.0</version>
+
+    <licenses>
+        <license>
+            <name>The ApacheSoftware License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>dingmao</name>
+            <email>dmt@hzdingmao.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <tag>master</tag>
+        <connection>https://github.com/hangzhoudingmao/platformSdk.git</connection>
+        <developerConnection>https://github.com/hangzhoudingmao</developerConnection>
+        <url>https://github.com/hangzhoudingmao/platformSdk.git</url>
+    </scm>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- Source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- GPG -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>sonatype</id>
+                    <url>
+                        https://oss.sonatype.org/content/repositories/snapshots
+                    </url>
+                </snapshotRepository>
+
+                <repository>
+                    <id>sonatype</id>
+                    <url>
+                        https://oss.sonatype.org/service/local/staging/deploy/maven2
+                    </url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+</project>
